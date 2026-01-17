@@ -35,8 +35,9 @@ class WeatherRestProvider:
 
 def main():
     # function used to test how the integration works
-    zabrze_test=WeatherRestProvider("weatherapi_key","weatherapi_key")
+    zabrze_test=WeatherRestProvider("weatherapi","weatherapi_key")
     resp=zabrze_test.weather_api_request("Warszawa")
+    print(type(resp['forecast']['forecastday']))
     
     
     print(resp['forecast']['forecastday'][1]['date'],resp['forecast']['forecastday'][1]['day']['mintemp_c'])
