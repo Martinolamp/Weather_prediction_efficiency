@@ -37,10 +37,11 @@ def main():
 
     zabrze_test=WeatherRestProvider("weatherapi_key","weatherapi_key")
     resp=zabrze_test.weather_api_request("Zabrze")
-    print(resp['forecast']['forecastday'][0]['day']['maxtemp_c'])
-    print(resp['forecast']['forecastday'][0]['day']['mintemp_c'])
-    print(resp['forecast']['forecastday'][1]['day']['maxtemp_c'])
-    print(resp['forecast']['forecastday'][1]['day']['mintemp_c'])
+    
+    #print(resp['forecast']['forecastday'][1]['date'],resp['forecast']['forecastday'][1]['day']['mintemp_c'])
+    print(resp['forecast']['forecastday'][1]['date'],resp['forecast']['forecastday'][1]['day']['mintemp_c'])
+    print(resp['forecast']['forecastday'][2]['date'],resp['forecast']['forecastday'][2]['day']['mintemp_c'])
+    #print(resp['forecast']['forecastday'][3]['date'],resp['forecast']['forecastday'][3]['day']['mintemp_c'])
 
 if __name__ == "__main__":
     main()
