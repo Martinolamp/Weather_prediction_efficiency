@@ -9,22 +9,10 @@ class SupbaseConnection:
         self.url = os.getenv("SUPABASE_URL")
         self.key = os.getenv("SUPABASE_KEY")
         self.client = create_client(self.url, self.key)
-        self.insert_cities = self.insert_cities
+    
 
     def get_client(self):
         return self.client
-
-    def insert_cities(self, table_name, cities_dict):
-        """
-        Wstawia dane do dowolnej tabeli w Supabase.
-        cities_dict: lista słowników, np. [{"col1": "val1"}, {"col2": "val2"}]
-        """
-        try:
-            response = self.client.table(table_name).insert(cities_dict).execute()
-            return response
-        except Exception as e:
-            print(f"❌ Błąd podczas insertu do {table_name}: {e}")
-            raise e
     def insert_cities(self, table_name,cities_dict):
         """
         Wstawia dane do dowolnej tabeli w Supabase.
