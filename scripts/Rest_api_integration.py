@@ -34,14 +34,14 @@ class WeatherRestProvider:
 
 
 def main():
-
+    # function used to test how the integration works
     zabrze_test=WeatherRestProvider("weatherapi_key","weatherapi_key")
-    resp=zabrze_test.weather_api_request("Zabrze")
+    resp=zabrze_test.weather_api_request("Warszawa")
     
-    #print(resp['forecast']['forecastday'][1]['date'],resp['forecast']['forecastday'][1]['day']['mintemp_c'])
+    
     print(resp['forecast']['forecastday'][1]['date'],resp['forecast']['forecastday'][1]['day']['mintemp_c'])
     print(resp['forecast']['forecastday'][2]['date'],resp['forecast']['forecastday'][2]['day']['mintemp_c'])
-    #print(resp['forecast']['forecastday'][3]['date'],resp['forecast']['forecastday'][3]['day']['mintemp_c'])
+    #print
 
 if __name__ == "__main__":
     main()
