@@ -1,5 +1,6 @@
 from Rest_api_integration import WeatherRestProvider
 from Supabase_operatoins import SupbaseConnection
+import datetime
 
 #integracja z Rest api weatherapi.com
 
@@ -15,21 +16,38 @@ def fetch_cities_from_db(table_name):
         cities = response.data
         return cities
     except Exception as e:
-        print(f"❌ Błąd podczas pobierania miast z {table_name}: {e}")
+        print(f" Błąd podczas pobierania miast z {table_name}: {e}")
         return []
     
 cities=fetch_cities_from_db("Cities")
-cities_dict=[city for city in cities]      
+cities_list=[city for city in cities]      
 
-##Weather api data fetch
+###Weather api data fetch, petla zadziała tylko dwa razy, pownieważ weather api nie pozwala na większy dostęp do danych
 
 def fetch_and_store_weather_data(cities):
     weather=WeatherRestProvider("weatherapi_key","weatherapi_key")
-    response=weather.weather_api_request(cities)
-    print(response['forecast']['forecastday'][1]['date'],response['forecast']['forecastday'][1]['day']['mintemp_c'],response['forecast']['forecastday'][2]['day']['maxtemp_c'])
+    try:
+        response=weather.weather_api_request(cities)
+        for i in [1,2]:
+            date=response['forecast']['forecastday'][i]['date']
+            min_temp=response['forecast']['forecastday'][i]['day']['mintemp_c']
+            max_temp=response['forecast']['forecastday'][i]['day']['maxtemp_c']
+            date_diff=datetime.datetime.strptime(date, '%Y-%m-%d').date() - datetime.date.today()
+            print(date_diff.days)
+             # Print the difference in days
+            print(f"Data: {date}, Min Temp: {min_temp}°C")
+
+    except Exception as e:
+        print(f" Błąd podczas pobierania danych pogodowych z weatherapi: {e}")
+
         
 
-
+for i in cities_list:
+    city_name=i['City_name']
+    print(city_name)
 
 
 fetch_and_store_weather_data("Warszawa")
+
+#weather_data_api={}
+#weather_data=[city['City_name'] for city in cities_list]
