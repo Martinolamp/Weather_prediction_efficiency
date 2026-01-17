@@ -6,7 +6,7 @@ import datetime
 
 #Zanim sie to stanie podczytaj dane z tabeli cities to dict
 
-cities_dict=[]
+cities_dict={}
 
 def fetch_cities_from_db(table_name):
     db = SupbaseConnection()
@@ -20,11 +20,16 @@ def fetch_cities_from_db(table_name):
         return []
     
 cities=fetch_cities_from_db("Cities")
-cities_list=[city for city in cities]      
+
+#cities_dict={city for city in cities}     
+
+cities_dict={city['City_id']:city['City_name'] for city in cities}
+
+
 
 ###Weather api data fetch, petla zadziała tylko dwa razy, pownieważ weather api nie pozwala na większy dostęp do danych
 
-def fetch_and_store_weather_data(cities):
+def fetch_and_store_weather_data(cities,city_ref_id):
     weather=WeatherRestProvider("weatherapi_key","weatherapi_key")
     try:
         response=weather.weather_api_request(cities)
@@ -34,20 +39,36 @@ def fetch_and_store_weather_data(cities):
             max_temp=response['forecast']['forecastday'][i]['day']['maxtemp_c']
             date_diff=datetime.datetime.strptime(date, '%Y-%m-%d').date() - datetime.date.today()
             print(date_diff.days)
+            dict_to_insert={
+                "Date":date,
+                "Date_difference":date_diff.days,
+                "Actual":"false",
+                "Max_temp":max_temp,
+                "Min_temp":min_temp,
+                "Provider_type":"REST_API",
+                "City_ref_id":city_ref_id
+            }
              # Print the difference in days
-            print(f"Data: {date}, Min Temp: {min_temp}°C")
+            #print(dict_to_insert)
 
     except Exception as e:
         print(f" Błąd podczas pobierania danych pogodowych z weatherapi: {e}")
 
         
+    #insert_data_to_database
+    try:
+        db = SupbaseConnection()
+        response=db.insert_weather_data("Weather_data",dict_to_insert)
+        print("✅ Wstawiono dane pogodowe:", response)
+    except Exception as e:
+        print(f"❌ Błąd podczas wstawiania danych pogodowych: {e}")
 
-for i in cities_list:
-    city_name=i['City_name']
-    print(city_name)
 
 
-fetch_and_store_weather_data("Warszawa")
+for city_id, city_name in cities_dict.items():
+    try:
+        fetch_and_store_weather_data(city_name,city_id)
+    except Exception as e:
+        print(f" Błąd podczas przetwarzania miasta {city_name}: {e}")
 
-#weather_data_api={}
-#weather_data=[city['City_name'] for city in cities_list]
+

@@ -25,7 +25,18 @@ class SupbaseConnection:
         except Exception as e:
             print(f"❌ Błąd podczas insertu do {table_name}: {e}")
             raise e
-
+    def insert_weather_data(self, table_name,weather_data_dict):
+        """
+        Wstawia dane do dowolnej tabeli w Supabase.
+        data_list: lista słowników, np. [{"col1": "val1"}, {"col2": "val2"}]
+        """
+        
+        try:
+            response = self.client.table(table_name).insert(weather_data_dict).execute()
+            return response
+        except Exception as e:
+            print(f"❌ Błąd podczas insertu do {table_name}: {e}")
+            raise e
 
 def main():
     """Główna funkcja uruchomieniowa skryptu."""
