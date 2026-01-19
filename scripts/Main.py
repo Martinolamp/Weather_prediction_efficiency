@@ -15,7 +15,7 @@ def fetch_cities_from_db(table_name):
     try:
         response = client.table(table_name).select("*").execute()
         cities = response.data
-        cities=fetch_cities_from_db("Cities")
+        
 
         cities_dict={city['City_id']:city['City_name'] for city in cities}  
         return cities_dict
@@ -23,7 +23,7 @@ def fetch_cities_from_db(table_name):
         print(f" Błąd podczas pobierania miast z {table_name}: {e}")
         return []
     
-cities=fetch_cities_from_db("Cities")
+#cities=fetch_cities_from_db("Cities")
 
 #cities_dict={city['City_id']:city['City_name'] for city in cities}
 
@@ -83,19 +83,27 @@ def current_weather_data(cities,city_ref_id):
     except Exception as e:
         print(f" Błąd podczas pobierania aktualnych danych pogodowych z weatherapi: {e}")
     
+
+
+
+
 def main():
-    cities=fetch_cities_from_db("Cities")
-    print(cities)
-    for city_id, city_name in cities.items():
+     cities=fetch_cities_from_db("Cities")
+     print(cities)   
+     for city_id, city_name in cities.items():
         try:
-            print(city_id,city_name)
-            #current_weather_data(city_name,city_id)
+            #print(city_id,city_name)
+            current_weather_data(city_name,city_id)
         except Exception as e:
             print(f" Błąd podczas przetwarzania miasta {city_name}: {e}")
 
-
+            
 if __name__ == "__main__":
     main()
+
+
+
+
 
 
   
