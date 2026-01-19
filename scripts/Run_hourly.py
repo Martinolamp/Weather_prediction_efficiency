@@ -14,4 +14,4 @@ def run():
 
  
 if __name__ == "__main__":
-    run() # To jest kluczowe! Bez tego skrypt się nie odpali.
+    run() # Running the main function.
