@@ -17,12 +17,20 @@ class WeatherRestProvider:
 
 
 
-    def weather_api_request(self,city_name):
-        base_url = os.getenv("weather_api_base_url")
-        sufix=os.getenv("weather_api_sufix")
-        api_key = self.weather_api_key
-        url = f"{base_url}{api_key}&q={city_name}{sufix}"
-        requests.get(url)
+    def weather_api_request(self,city_name,forecats):
+        #class used to call weather forecats endoping
+        if forecats:
+            base_url = os.getenv("weather_api_base_url")
+            sufix=os.getenv("weather_api_sufix")
+            api_key = self.weather_api_key
+            url = f"{base_url}{api_key}&q={city_name}{sufix}"
+            requests.get(url)
+        else:
+            base_url = os.getenv("weather_api_base_current")
+            sufix=os.getenv("weather_api_current_suffix")
+            api_key = self.weather_api_key
+            url = f"{base_url}{api_key}&q={city_name}{sufix}"
+            requests.get(url)
         try:
             response = requests.get(url)
             response.raise_for_status()  # Raise an error for bad status codes
@@ -30,13 +38,12 @@ class WeatherRestProvider:
         except requests.exceptions.RequestException as e:
             logger.error(f"Error fetching weather data for {city_name}: {e}")
             return None
-    
 
-
+        
 def main():
     # function used to test how the integration works
     zabrze_test=WeatherRestProvider("weatherapi","weatherapi_key")
-    resp=zabrze_test.weather_api_request("Warszawa")
+    resp=zabrze_test.weather_api_request("Warszawa",True)
     print(type(resp['forecast']['forecastday']))
     
     

@@ -5,39 +5,42 @@ import datetime
 #integracja z Rest api weatherapi.com
 
 #Zanim sie to stanie podczytaj dane z tabeli cities to dict
-
+db = SupbaseConnection()
+client = db.get_client()
 cities_dict={}
 
 def fetch_cities_from_db(table_name):
-    db = SupbaseConnection()
-    client = db.get_client()
+    #db = SupbaseConnection()
+    #client = db.get_client()
     try:
         response = client.table(table_name).select("*").execute()
         cities = response.data
-        return cities
+        cities=fetch_cities_from_db("Cities")
+
+        cities_dict={city['City_id']:city['City_name'] for city in cities}  
+        return cities_dict
     except Exception as e:
         print(f" Błąd podczas pobierania miast z {table_name}: {e}")
         return []
     
 cities=fetch_cities_from_db("Cities")
 
-#cities_dict={city for city in cities}     
+#cities_dict={city['City_id']:city['City_name'] for city in cities}
 
-cities_dict={city['City_id']:city['City_name'] for city in cities}
 
-#resp['forecast']['forecastday'][1]['date'],resp['forecast']['forecastday'][1]['day']['mintemp_c']
 
 ###Weather api data fetch, petla zadziała tylko dwa razy, pownieważ weather api nie pozwala na większy dostęp do danych
 
 def fetch_and_store_weather_data(cities,city_ref_id):
     weather=WeatherRestProvider("weatherapi","weatherapi_key")
-    db = SupbaseConnection()
-    response=weather.weather_api_request(cities)
-    #print(response['forecast']['forecastday'][2]['day']['maxtemp_c'])
+    #db = SupbaseConnection()
+    response=weather.weather_api_request(cities,False)
+    
     try:
-        #response=weather.weather_api_request(cities)
+        
         
         for i in [1,2]:
+            #1-2 counter is used becaouse of weatherapi.com free plan limitiation
             date=response['forecast']['forecastday'][i]['date']
             min_temp=response['forecast']['forecastday'][i]['day']['mintemp_c']
             max_temp=response['forecast']['forecastday'][i]['day']['maxtemp_c']
@@ -49,28 +52,50 @@ def fetch_and_store_weather_data(cities,city_ref_id):
                 "Actual":"false",
                 "Max_temp":max_temp,
                 "Min_temp":min_temp,
-                "Provider_type":"Weatherapi.com",
+                "Provider_type":"Rest",
                 "City_ref_id":city_ref_id
             }
-             # Print the difference in days
+             
             print(dict_to_insert)
             
-            payload = db.insert_weather_data("Weather_data", dict_to_insert)
+            payload = db.insert_weather_data("Weather_forecast", dict_to_insert)
             print("✅ Wstawiono dane pogodowe:", dict_to_insert)  
                 
     except Exception as e:
         print(f" Błąd podczas pobierania danych pogodowych z weatherapi: {e}")
 
         
-    #insert_data_to_database
-    
-
-
-for city_id, city_name in cities_dict.items():
+def current_weather_data(cities,city_ref_id):
+    weather=WeatherRestProvider("weatherapi","weatherapi_key")
+    #db = SupbaseConnection()
+    response=weather.weather_api_request(cities,True)
     try:
-        fetch_and_store_weather_data(city_name,city_id)
+        current_temp=response['current']['temp_c']
+        dict_to_insert={
+            "Temp":current_temp,
+            "City_ref_id":city_ref_id
+        }
+        
+        
+        payload = db.insert_weather_data("Weather_data", dict_to_insert)
+        print("✅ Wstawiono dane pogodowe:", dict_to_insert)  
+            
     except Exception as e:
-        print(f" Błąd podczas przetwarzania miasta {city_name}: {e}")
+        print(f" Błąd podczas pobierania aktualnych danych pogodowych z weatherapi: {e}")
+    
+def main():
+    cities=fetch_cities_from_db("Cities")
+    print(cities)
+    for city_id, city_name in cities.items():
+        try:
+            print(city_id,city_name)
+            #current_weather_data(city_name,city_id)
+        except Exception as e:
+            print(f" Błąd podczas przetwarzania miasta {city_name}: {e}")
+
+
+if __name__ == "__main__":
+    main()
 
 
   
