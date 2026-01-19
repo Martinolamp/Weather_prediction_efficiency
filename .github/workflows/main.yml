@@ -1,0 +1,32 @@
+name: Pobieranie Pogody
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # Odpala się co godzinę
+  workflow_dispatch:      # Dodaje przycisk "Run workflow" do ręcznego testu
+
+jobs:
+  weather_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pobierz kod repozytorium
+        uses: actions/checkout@v4
+
+      - name: Skonfiguruj Pythona
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Zainstaluj biblioteki
+        run: |
+          pip install -r requirements.txt
+
+      - name: Uruchom pobieranie danych
+        env:
+          # Tutaj mapujesz swoje sekrety
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
+        run: python -c "from Main import twoja_funkcja; twoja_funkcja()"
