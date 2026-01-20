@@ -16,15 +16,28 @@ class WebScrapperA:
         endpoint: str - the specific API endpoint to hit
         params: dict - optional parameters for the request
         """
-        url = f"{self.base_url,city,city_att}"
-        headers = {
-            "Authorization": f"Bearer {self.api_key}"
-        }
+        url = f"{self.base_url}{city}/{city_att}"
+        
+        
         
         try:
-            response = requests.get(url, headers=headers, params=params)
+            response = requests.get(url)
             response.raise_for_status()  # Raise an error for bad status codes
-            return response.text()
+            return response.text
         except requests.exceptions.RequestException as e:
             print(f"❌ Error fetching data from {url}: {e}")
             return None
+
+
+
+def main():
+    scrapper = WebScrapperA()
+    city = "SampleCity"
+    city_att = "SampleAttribute"
+    data = scrapper.fetch_data('warszawa',756135)
+    if data:
+        soup = BeautifulSoup(data, 'html.parser')
+        print(soup.prettify()) 
+
+if __name__ == "__main__":
+    main()
