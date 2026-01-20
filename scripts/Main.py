@@ -1,5 +1,6 @@
 from Rest_api_integration import WeatherRestProvider
 from Supabase_operatoins import SupbaseConnection
+from Web_scrapper import WebScrapperA
 import datetime
 
 #integracja z Rest api weatherapi.com
@@ -16,8 +17,8 @@ def fetch_cities_from_db(table_name):
         response = client.table(table_name).select("*").execute()
         cities = response.data
         
-
-        cities_dict={city['City_id']:city['City_name'] for city in cities}  
+        
+        cities_dict={city['City_id']:[city['City_name'],city['Lon'],city['Lat']] for city in cities}
         return cities_dict
     except Exception as e:
         print(f" Błąd podczas pobierania miast z {table_name}: {e}")
@@ -83,19 +84,33 @@ def current_weather_data(cities,city_ref_id):
     except Exception as e:
         print(f" Błąd podczas pobierania aktualnych danych pogodowych z weatherapi: {e}")
     
-
+def run_webscrapperA(lat,lon,city_id):
+    scrapper = WebScrapperA()
+    try:
+        forcast_a=scrapper.fetch_data(lat,lon,city_id)
+        print(forcast_a)
+    except Exception as e:
+        print(f" Błąd podczas pobierania danych pogodowych z OpenMeteo: {e}")
+    
+             
+           
+                
+    
 
 
 
 def main():
      cities=fetch_cities_from_db("Cities")
-     print(cities)   
-     for city_id, city_name in cities.items():
-        try:
-            #print(city_id,city_name)
-            current_weather_data(city_name,city_id)
-        except Exception as e:
-            print(f" Błąd podczas przetwarzania miasta {city_name}: {e}")
+     for city_id, (city_name,lon,lat) in cities.items():
+         try:
+             #print(city_id,city_name)
+             #fetch_and_store_weather_data(city_name,city_id)
+             #current_weather_data(city_name,city_id)
+             #print(lat,lon,city_id)
+             run_webscrapperA(lat,lon,city_id)
+         except Exception as e:
+             print(f" Błąd podczas przetwarzania miasta {city_name}: {e}")
+     
 
             
 if __name__ == "__main__":

@@ -5,3 +5,6 @@ requests
 matplotlib
 beautifulsoup4
 re
+penmeteo_requests
+requests_cache
+retry_requests

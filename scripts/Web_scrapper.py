@@ -3,6 +3,10 @@ from bs4 import BeautifulSoup
 import os
 import requests
 import re
+import pandas as pd
+import openmeteo_requests
+import requests_cache
+from retry_requests import retry
 
 
 class WebScrapperA:
@@ -10,47 +14,39 @@ class WebScrapperA:
         load_dotenv()
         self.base_url = os.getenv("WEB_SCRAPPER_BASE_URL_A")
         #self.api_key = os.getenv("WEB_SCRAPPER_API_KEY")
+        cache_session = requests_cache.CachedSession('.cache', expire_after = 3600)
+        retry_session = retry(cache_session, retries = 5, backoff_factor = 0.2)
+        self.opopenmeteo = openmeteo_requests.Client()
 
-    def fetch_data(self, city, params=None):
-        """
-        Fetch data from a web endpoint.
-        endpoint: str - the specific API endpoint to hit
-        params: dict - optional parameters for the request
-        """
-        url = f"{self.base_url}{city}"
-        
-        
-        
+    def fetch_data(self,lat,lon,city_id):
+        url = f"{self.base_url}"
+        params = {
+        "latitude": lat,
+        "longitude": lon,
+        "daily":["temperature_2m_max","temperature_2m_min"],
+        "timezone":"GMT"
+        }
         try:
-            response = requests.get(url)
-            response.raise_for_status()  # Raise an error for bad status codes
-            pattern = re.compile(r'\d{2}\.\d{2}')
-            response=response.text
-            soup = BeautifulSoup(response, 'html.parser')
-            print(soup)
-            divs = soup.find_all('span', class_='weather-box__item-label')
-            print(divs)
-            extracted_values = []
-            for div in divs:
-                # Pobieramy tekst z diva
-                print(div)
-
-            return extracted_values
+            responses = self.opopenmeteo.weather_api(url, params=params)
+            response=responses[0]
+            daily = response.Daily()
+            daily_temp_min=daily.Variables(0).ValuesAsNumpy()
+            daily_temp_max=daily.Variables(1).ValuesAsNumpy()
             
-        except requests.exceptions.RequestException as e:
-            print(f"❌ Error fetching data from {url}: {e}")
-            return None
+            return (daily_temp_min,daily_temp_max,city_id)
 
+        except requests.exceptions.RequestException as e:
+            print(f"Error fetching data from {url}: {e}")
+            return None
+      
+    
 
 
 def main():
     scrapper = WebScrapperA()
-    city = "SampleCity"
-    city_att = "SampleAttribute"
-    data = scrapper.fetch_data('slaskie-zabrze/')
-    if data:
-        soup = BeautifulSoup(data, 'html.parser')
-        print(soup.prettify()) 
+    print(scrapper.fetch_data(52.2297, 21.0122,2313))
+    
+    
 
 if __name__ == "__main__":
     main()
