@@ -39,8 +39,8 @@ class WebScrapperA:
                 "city_id":city_id,
 
             }
-            
-            return city_id,list(daily_temp_min),list(daily_temp_max)
+            print(daily_temp_min)
+            return city_id,daily_temp_min,daily_temp_max
 
         except requests.exceptions.RequestException as e:
             print(f"Error fetching data from {url}: {e}")

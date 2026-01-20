@@ -110,7 +110,7 @@ def main():
          try:
              
             scrapped_array=run_webscrapperA(lat,lon,city_id)
-            print(scrapped_array)
+            print(scrapped_array[0],(scrapped_array[1][1:]),(scrapped_array[2][1:]))
          except Exception as e:
              print(f" Błąd podczas przetwarzania miasta {city_name}: {e}")
      
