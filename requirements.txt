@@ -4,3 +4,4 @@ pandas
 requests
 matplotlib
 beautifulsoup4
+re
