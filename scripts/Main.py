@@ -2,6 +2,7 @@ from Rest_api_integration import WeatherRestProvider
 from Supabase_operatoins import SupbaseConnection
 from Web_scrapper import WebScrapperA
 import datetime
+import pandas as pd
 
 #integracja z Rest api weatherapi.com
 
@@ -104,20 +105,39 @@ def insert_weather_forecast_db(table_name,city_id,daily_temp_min,daily_temp_max)
 
 
 def main():
-     cities=fetch_cities_from_db("Cities")
-     forecast_dict={}
-     for city_id, (city_name,lon,lat) in cities.items():
-         try:
-             
-            scrapped_array=run_webscrapperA(lat,lon,city_id)
-            print(scrapped_array[0],(scrapped_array[1][1:]),(scrapped_array[2][1:]))
-         except Exception as e:
-             print(f" Błąd podczas przetwarzania miasta {city_name}: {e}")
-     
+    cities = fetch_cities_from_db("Cities")
+    all_data = []  # Tutaj będziemy zbierać dane
+    
+    measure_date = pd.Timestamp.now().date()
+
+    for city_id, (city_name, lon, lat) in cities.items():
+        try:
+            scrapped_array = run_webscrapperA(lat, lon, city_id)
+            
+            t_min = scrapped_array[1][1:]
+            t_max = scrapped_array[2][1:]
+            
+            # Zamiast tworzyć DF tutaj, tworzymy listę słowników dla każdego dnia
+            for i in range(len(t_min)):
+                all_data.append({
+                    'city_id': city_id,
+                    'date': measure_date,
+                    't_max': t_max[i],
+                    't_min': t_min[i],
+                    'Date_difference': i + 1
+                })
+                
+        except Exception as e:
+            print(f"Błąd dla miasta {city_id}: {e}")
+                        
+    forecast_df = pd.DataFrame(all_data)
+
+    return forecast_df
 
             
 if __name__ == "__main__":
-    main()
+    print(main())
+   
 
 
 
