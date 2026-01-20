@@ -83,31 +83,34 @@ def current_weather_data(cities,city_ref_id):
             
     except Exception as e:
         print(f" Błąd podczas pobierania aktualnych danych pogodowych z weatherapi: {e}")
+
+
+    
     
 def run_webscrapperA(lat,lon,city_id):
     scrapper = WebScrapperA()
     try:
         forcast_a=scrapper.fetch_data(lat,lon,city_id)
-        print(forcast_a)
+        #print(forcast_a)
+        return forcast_a
     except Exception as e:
         print(f" Błąd podczas pobierania danych pogodowych z OpenMeteo: {e}")
     
-             
-           
-                
-    
 
+def insert_weather_forecast_db(table_name,city_id,daily_temp_min,daily_temp_max):
+    pass
+    
+    
 
 
 def main():
      cities=fetch_cities_from_db("Cities")
+     forecast_dict={}
      for city_id, (city_name,lon,lat) in cities.items():
          try:
-             #print(city_id,city_name)
-             #fetch_and_store_weather_data(city_name,city_id)
-             #current_weather_data(city_name,city_id)
-             #print(lat,lon,city_id)
-             run_webscrapperA(lat,lon,city_id)
+             
+            scrapped_array=run_webscrapperA(lat,lon,city_id)
+            print(scrapped_array)
          except Exception as e:
              print(f" Błąd podczas przetwarzania miasta {city_name}: {e}")
      

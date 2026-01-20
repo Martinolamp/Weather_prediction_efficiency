@@ -32,8 +32,15 @@ class WebScrapperA:
             daily = response.Daily()
             daily_temp_min=daily.Variables(0).ValuesAsNumpy()
             daily_temp_max=daily.Variables(1).ValuesAsNumpy()
+
+            return_dictionary={
+                "daily_temp_min":daily_temp_min,
+                "daily_temp_max":daily_temp_max,
+                "city_id":city_id,
+
+            }
             
-            return (daily_temp_min,daily_temp_max,city_id)
+            return return_dictionary
 
         except requests.exceptions.RequestException as e:
             print(f"Error fetching data from {url}: {e}")
@@ -44,9 +51,15 @@ class WebScrapperA:
 
 def main():
     scrapper = WebScrapperA()
-    print(scrapper.fetch_data(52.2297, 21.0122,2313))
+    temp={}
+    result=scrapper.fetch_data(52.2297, 21.0122,2313)
     
+    for key, value in result.items():
+        temp['city_id']=result['city_id']
+        temp['temp_min']=result['daily_temp_min']
+        temp['temp_max']=result['daily_temp_max']
     
+    print(temp)
 
 if __name__ == "__main__":
     main()
