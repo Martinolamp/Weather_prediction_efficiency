@@ -29,8 +29,8 @@ def fetch_cities_from_db(table_name):
 def fetch_and_store_weather_data(cities,city_ref_id):
     weather=WeatherRestProvider("weatherapi","weatherapi_key")
     #db = SupbaseConnection()
-    response=weather.weather_api_request(cities,False)
-    
+    response=weather.weather_api_request(cities,True)
+    #print(response)
     try:
         
         
@@ -40,15 +40,16 @@ def fetch_and_store_weather_data(cities,city_ref_id):
             min_temp=response['forecast']['forecastday'][i]['day']['mintemp_c']
             max_temp=response['forecast']['forecastday'][i]['day']['maxtemp_c']
             date_diff=datetime.datetime.strptime(date, '%Y-%m-%d').date() - datetime.date.today()
+            current_date=datetime.date.today()
             #print(date)
             dict_to_insert={
                 "Date":date,
                 "Date_difference":date_diff.days,
-                "Actual":"false",
                 "Max_temp":max_temp,
                 "Min_temp":min_temp,
                 "Provider_type":"Rest",
-                "City_ref_id":city_ref_id
+                "City_ref_id":city_ref_id,
+                "Provider_type":"B"
             }
              
             print(dict_to_insert)
@@ -101,32 +102,17 @@ def insert_weather_forecast_db(table_name,city_id,daily_temp_min,daily_temp_max)
 def main():
     cities = fetch_cities_from_db("Cities")
     all_data = []  # Tutaj będziemy zbierać dane
-    
-    measure_date = pd.Timestamp.now().date()
-
-    for city_id, (city_name, lon, lat) in cities.items():
+    for city_id, city_name in cities.items():
         try:
-            scrapped_array = run_webscrapperA(lat, lon, city_id)
+            print(city_id,city_name[0])
+            scrapped_array =fetch_and_store_weather_data(city_name[0],city_id)
             
-            t_min = scrapped_array[1][1:]
-            t_max = scrapped_array[2][1:]
-            
-            # Zamiast tworzyć DF tutaj, tworzymy listę słowników dla każdego dnia
-            for i in range(len(t_min)):
-                all_data.append({
-                    'city_id': city_id,
-                    'date': measure_date,
-                    't_max': t_max[i],
-                    't_min': t_min[i],
-                    'Date_difference': i + 1
-                })
-                
         except Exception as e:
             print(f"Błąd dla miasta {city_id}: {e}")
-                        
-    forecast_df = pd.DataFrame(all_data)
+    
+   
 
-    return forecast_df
+   
 
             
 if __name__ == "__main__":

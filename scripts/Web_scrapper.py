@@ -20,12 +20,12 @@ class WebScrapperA:
 
     def fetch_data(self,lat,lon,city_id):
         url = f"{self.base_url}"
+        
         params = {
         "latitude": lat,
         "longitude": lon,
         "daily":["temperature_2m_max","temperature_2m_min"],
-        "timezone":"GMT"
-        }
+        "timezone":"GMT"}
         try:
             responses = self.opopenmeteo.weather_api(url, params=params)
             response=responses[0]
