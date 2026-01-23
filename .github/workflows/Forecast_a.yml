@@ -1,4 +1,4 @@
-ame: Pobieranie Pogody
+name: Pobieranie Pogody
 
 on:
   schedule:
