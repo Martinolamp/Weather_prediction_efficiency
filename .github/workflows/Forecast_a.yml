@@ -1,8 +1,8 @@
-name: Pobieranie Pogody
+name: Pobieranie Prognozy Daily
 
 on:
   schedule:
-    - cron: '0 * * * *'  # Odpala się co godzinę
+    - cron: '0 3 * * *'  # Odpala się co godzinę
   workflow_dispatch:      # Dodaje przycisk "Run workflow" do ręcznego testu
 
 jobs:
