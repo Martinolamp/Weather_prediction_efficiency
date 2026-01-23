@@ -12,8 +12,8 @@ def main():
         try:
             scrapped_array = run_webscrapperA(lat, lon, city_id)
             
-            t_min = scrapped_array[1][1:]
-            t_max = scrapped_array[2][1:]
+            t_min = scrapped_array[2][1:]
+            t_max = scrapped_array[1][1:]
             
             # Zamiast tworzyć DF tutaj, tworzymy listę słowników dla każdego dnia
             for i in range(len(t_min)):
