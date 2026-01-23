@@ -25,13 +25,6 @@ def fetch_cities_from_db(table_name):
         print(f" Błąd podczas pobierania miast z {table_name}: {e}")
         return []
     
-#cities=fetch_cities_from_db("Cities")
-
-#cities_dict={city['City_id']:city['City_name'] for city in cities}
-
-
-
-###Weather api data fetch, petla zadziała tylko dwa razy, pownieważ weather api nie pozwala na większy dostęp do danych
 
 def fetch_and_store_weather_data(cities,city_ref_id):
     weather=WeatherRestProvider("weatherapi","weatherapi_key")
@@ -94,6 +87,7 @@ def run_webscrapperA(lat,lon,city_id):
         forcast_a=scrapper.fetch_data(lat,lon,city_id)
         #print(forcast_a)
         return forcast_a
+    
     except Exception as e:
         print(f" Błąd podczas pobierania danych pogodowych z OpenMeteo: {e}")
     

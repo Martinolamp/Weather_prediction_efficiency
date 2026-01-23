@@ -39,7 +39,7 @@ class WebScrapperA:
                 "city_id":city_id,
 
             }
-            print(daily_temp_min)
+            #print(daily_temp_min)
             return city_id,daily_temp_min,daily_temp_max
 
         except requests.exceptions.RequestException as e:

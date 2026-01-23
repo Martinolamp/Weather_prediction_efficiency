@@ -1,6 +1,6 @@
 from Supabase_operatoins import SupbaseConnection
 
-capitals_data = {4
+capitals_data = {
     "Warszawa": (52.2297, 21.0122, "mazowieckie"),
     "Kraków": (50.0647, 19.9450, "małopolskie"),
     "Wrocław": (51.1079, 17.0385, "dolnośląskie"),
