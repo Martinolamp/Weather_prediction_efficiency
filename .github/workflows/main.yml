@@ -31,4 +31,4 @@ jobs:
           weather_api_sufix: ${{ secrets.weather_api_sufix }}
           weather_api_base_current: ${{ secrets.weather_api_base_current }}
           weather_api_current_suffix: ${{ secrets.weather_api_current_suffix }}
-        run: python run_hourly.py
+        run: python scripts/Run_hourly.py
