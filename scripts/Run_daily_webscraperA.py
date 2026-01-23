@@ -22,7 +22,7 @@ def main():
                     'Date': measure_date,
                     'Max_temp': t_max[i],
                     'Min_temp': t_min[i],
-                    'Provider_type':'A'
+                    'Provider_type':'A',
                     'Date_difference': i + 1
                 })
                 
