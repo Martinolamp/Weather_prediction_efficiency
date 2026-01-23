@@ -4,6 +4,6 @@ pandas
 requests
 matplotlib
 beautifulsoup4
-penmeteo_requests
+openmeteo_requests
 requests_cache
 retry_requests
