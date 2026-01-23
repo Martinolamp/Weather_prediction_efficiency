@@ -1,0 +1,34 @@
+ame: Pobieranie Pogody
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # Odpala się co godzinę
+  workflow_dispatch:      # Dodaje przycisk "Run workflow" do ręcznego testu
+
+jobs:
+  weather_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pobierz kod repozytorium
+        uses: actions/checkout@v4
+
+      - name: Skonfiguruj Pythona
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Zainstaluj biblioteki
+        run: |
+          pip install -r requirements.txt
+
+      - name: Uruchom pobieranie danych
+        env:
+          # Tutaj mapujesz swoje sekrety
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          weatherapi_key: ${{ secrets.weatherapi_key }}
+          weather_api_base_url: ${{ secrets.weather_api_base_url }}
+          weather_api_sufix: ${{ secrets.weather_api_sufix }}
+          weather_api_base_current: ${{ secrets.weather_api_base_current }}
+          WEB_SCRAPPER_BASE_URL_A: ${{ secrets.WEB_SCRAPPER_BASE_URL_A }}
+        run: python scripts/Run_daily_webscraperAy.py
