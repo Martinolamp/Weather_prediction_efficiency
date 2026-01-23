@@ -2,7 +2,7 @@ name: Forecast_b
 
 on:
   schedule:
-    - cron: '0 3 * * *''  # Odpala się co dziennie
+    - cron: '0 3 * * *'  # Odpala się co dziennie
   workflow_dispatch:      # Dodaje przycisk "Run workflow" do ręcznego testu
 
 jobs:
