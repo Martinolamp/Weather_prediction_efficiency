@@ -30,5 +30,6 @@ jobs:
           weather_api_base_url: ${{ secrets.weather_api_base_url }}
           weather_api_sufix: ${{ secrets.weather_api_sufix }}
           weather_api_base_current: ${{ secrets.weather_api_base_current }}
+          weather_api_current_suffix: ${{ secrets.weather_api_current_suffix }}
           WEB_SCRAPPER_BASE_URL_A: ${{ secrets.WEB_SCRAPPER_BASE_URL_A }}
         run: python scripts/Run_daily_webscraperA.py
