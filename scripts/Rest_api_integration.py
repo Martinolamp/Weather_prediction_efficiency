@@ -12,13 +12,14 @@ class WeatherRestProvider:
         load_dotenv()
         self.name = name
         self.weather_api_key = os.getenv(env_token_key)
+        self.provider_c_api_key = os.getenv("Web_api_provider_c_key")
 
         
 
 
 
     def weather_api_request(self,city_name,forecats):
-        #class used to call weather forecats endoping
+        #class used to call weather forecats endoping#Free forecast for max 3 days
         if forecats:
             base_url = os.getenv("weather_api_base_url")
             sufix=os.getenv("weather_api_sufix")
@@ -38,6 +39,12 @@ class WeatherRestProvider:
         except requests.exceptions.RequestException as e:
             logger.error(f"Error fetching weather data for {city_name}: {e}")
             return None
+
+    def weather_api_request_provider_c(lat,lon):
+        prov_c_base_url=os.getenv("provider_c_base_url")
+        prov_c_sufix=os.getenv("provider_c_suffix")
+        prov_c_api_key=self.provider_c_api_key
+        
 
         
 def main():

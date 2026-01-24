@@ -93,30 +93,24 @@ def run_webscrapperA(lat,lon,city_id):
         print(f" Błąd podczas pobierania danych pogodowych z OpenMeteo: {e}")
     
 
-def insert_weather_forecast_db(table_name,city_id,daily_temp_min,daily_temp_max):
+def run_web_srapperC(lat,lon,city_id):
     pass
-    
+
+
     
 
 
 def main():
     cities = fetch_cities_from_db("Cities")
     all_data = []  # Tutaj będziemy zbierać dane
-    for city_id, city_name in cities.items():
-        try:
-            print(city_id,city_name[0])
-            scrapped_array =fetch_and_store_weather_data(city_name[0],city_id)
-            
-        except Exception as e:
-            print(f"Błąd dla miasta {city_id}: {e}")
-    
+    print(cities)
    
 
    
 
             
 if __name__ == "__main__":
-    print(main())
+    main()
    
 
 
