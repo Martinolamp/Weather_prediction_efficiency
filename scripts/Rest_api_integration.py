@@ -12,7 +12,7 @@ class WeatherRestProvider:
         load_dotenv()
         self.name = name
         self.weather_api_key = os.getenv(env_token_key)
-        self.provider_c_api_key = os.getenv("Web_api_provider_c_key")
+        self.provider_c_api_key = os.getenv(env_token_key)
 
         
 
@@ -40,22 +40,30 @@ class WeatherRestProvider:
             logger.error(f"Error fetching weather data for {city_name}: {e}")
             return None
 
-    def weather_api_request_provider_c(lat,lon):
+    def weather_api_request_provider_c(self,lat,lon):
         prov_c_base_url=os.getenv("provider_c_base_url")
-        prov_c_sufix=os.getenv("provider_c_suffix")
+        prov_c_sufix=os.getenv("provider_c_sufix")
         prov_c_api_key=self.provider_c_api_key
-        
+        url=f'{prov_c_base_url}{prov_c_api_key}&lat={lat}&lon={lon}{prov_c_sufix}'
+        try:
+            response = requests.get(url)
+            response.raise_for_status()  # Raise an error for bad status codes
+            return response.json()
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Error fetching weather data for lat:{lat} lon:{lon} : {e}")
+            return None
+
 
         
 def main():
     # function used to test how the integration works
-    zabrze_test=WeatherRestProvider("weatherapi","weatherapi_key")
-    resp=zabrze_test.weather_api_request("Warszawa",True)
-    print(type(resp['forecast']['forecastday']))
+    zabrze_test=WeatherRestProvider("meteoblue","Web_api_provider_c_key")
+    resp=zabrze_test.weather_api_request_provider_c(52.2297,21.0122)
+    print(resp['data_day']['temperature_max'][1:],resp['data_day']['temperature_min'][1:])
+    #print(type(resp['forecast']['forecastday']))
     
     
-    print(resp['forecast']['forecastday'][1]['date'],resp['forecast']['forecastday'][1]['day']['mintemp_c'])
-    print(resp['forecast']['forecastday'][2]['date'],resp['forecast']['forecastday'][2]['day']['mintemp_c'])
+    
     #print
 
 if __name__ == "__main__":

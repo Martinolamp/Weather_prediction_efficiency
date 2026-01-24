@@ -94,8 +94,36 @@ def run_webscrapperA(lat,lon,city_id):
     
 
 def run_web_srapperC(lat,lon,city_id):
-    pass
+    
+    all_data = []  # Tutaj będziemy zbierać dane
 
+    try:
+        rest_scrapping=WeatherRestProvider("meteoblue","Web_api_provider_c_key")
+
+        scrapped_dict = rest_scrapping.weather_api_request_provider_c(lat, lon)
+        today=datetime.datetime.now().date()
+        t_min = scrapped_dict['data_day']['temperature_min'][1:]
+        t_max = scrapped_dict['data_day']['temperature_max'][1:]
+        
+        # Zamiast tworzyć DF tutaj, tworzymy listę słowników dla każdego dnia
+        for i in range(len(t_min)):
+            all_data.append({
+
+                'City_ref_id': city_id,
+                'Date': today,
+                'Max_temp': t_max[i],
+                'Min_temp': t_min[i],
+                'Provider_type':'C',
+                'Date_difference': i + 1
+            })
+            
+        
+
+    
+    except Exception as e:
+        print(f"Błąd dla miasta {city_id}: {e}")
+    print(all_data)
+    return all_data
 
     
 
