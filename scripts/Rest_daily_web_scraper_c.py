@@ -22,7 +22,7 @@ def main():
             data_dict = forecast_df.astype({'Date': str}).to_dict(orient='records')
             db_connection = SupbaseConnection()
             db_connection.insert_weather_forecast('Weather_forecast', data_dict)
-            print(f"✅ Wstawiono dane pogodowe dla miasta {city_name} z provider C")
+            
         except Exception as e:
             print(f"Błąd dla miasta {city_id}: {e}")
     
