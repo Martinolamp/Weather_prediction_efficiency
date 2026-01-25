@@ -98,7 +98,7 @@ def run_web_srapperC(lat,lon,city_id):
     all_data = []  # Tutaj będziemy zbierać dane
 
     try:
-        rest_scrapping=WeatherRestProvider("meteoblue","Web_api_provider_c_key")
+        rest_scrapping=WeatherRestProvider("meteoblue","WEB_API_PROVIDER_C_KEY")
 
         scrapped_dict = rest_scrapping.weather_api_request_provider_c(lat, lon)
         today=datetime.datetime.now().date()
