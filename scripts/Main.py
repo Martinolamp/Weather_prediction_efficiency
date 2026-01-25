@@ -104,9 +104,10 @@ def run_web_srapperC(lat,lon,city_id):
         today=datetime.datetime.now().date()
         t_min = scrapped_dict['data_day']['temperature_min'][1:]
         t_max = scrapped_dict['data_day']['temperature_max'][1:]
-        
+        print(t_min,t_max)
         # Zamiast tworzyć DF tutaj, tworzymy listę słowników dla każdego dnia
-        for i in range(len(t_min)):
+        for i in range(1,len(scrapped_dict['data_day']['temperature_min'][1:])):
+            
             all_data.append({
 
                 'City_ref_id': city_id,
@@ -114,7 +115,7 @@ def run_web_srapperC(lat,lon,city_id):
                 'Max_temp': t_max[i],
                 'Min_temp': t_min[i],
                 'Provider_type':'C',
-                'Date_difference': i + 1
+                'Date_difference': i
             })
             
         
@@ -122,7 +123,7 @@ def run_web_srapperC(lat,lon,city_id):
     
     except Exception as e:
         print(f"Błąd dla miasta {city_id}: {e}")
-    print(all_data)
+    
     return all_data
 
 

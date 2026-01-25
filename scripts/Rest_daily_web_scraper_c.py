@@ -12,26 +12,29 @@ def main():
     #print(cities)
     for city_id, (city_name, lon, lat) in cities.items():
         try:
+
+            #print(type(lon),type(lat),type(city_id))
+
             scrapped_array = run_web_srapperC(lat, lon, city_id)
             
 
     
-            forecast_df = pd.DataFrame(scrapped_array)
+            #forecast_df = pd.DataFrame(scrapped_array)
             
             
-            data_dict = forecast_df.astype({'Date': str}).to_dict(orient='records')
-            db_connection = SupbaseConnection()
-            db_connection.insert_weather_forecast('Weather_forecast', data_dict)
+            #data_dict = forecast_df.astype({'Date': str}).to_dict(orient='records')
+            #db_connection = SupbaseConnection()
+            #db_connection.insert_weather_forecast('Weather_forecast', data_dict)
+            
+            
+
+    
+        
             
         except Exception as e:
             print(f"Błąd dla miasta {city_id}: {e}")
-    
+            
 
-
-
-   
 
 if __name__ == "__main__":
-    
     main()
-    
