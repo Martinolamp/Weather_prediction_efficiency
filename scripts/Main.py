@@ -125,13 +125,38 @@ def run_web_srapperC(lat,lon,city_id):
     print(all_data)
     return all_data
 
-    
+
+
+def run_web_srapperD(city_name,city_id):
+
+
+    all_data = []  # Tutaj będziemy zbierać dane
+    rest_scrapping=WeatherRestProvider("Visualcrossing","provider_d_api_key")
+    scrapped_dict = rest_scrapping.weather_api_request_provider_d(city_name)
+    today=datetime.datetime.now().date()
+    for i in range(1,len(scrapped_dict['days'][:7])):
+        all_data.append({
+                'City_ref_id': city_id,
+                'Date': today,
+                'Max_temp': scrapped_dict['days'][i]['tempmax'],
+                'Min_temp': scrapped_dict['days'][i]['tempmin'],
+                'Provider_type':'D',
+                'Date_difference': i + 1
+            })
+
+       
+
+    return all_data
+
+
 
 
 def main():
     cities = fetch_cities_from_db("Cities")
     all_data = []  # Tutaj będziemy zbierać dane
-    print(cities)
+    for city_id, (city_name, lon, lat) in cities.items():
+        dict_test=run_web_srapperD(city_name,city_id)
+        print(dict_test)
    
 
    

@@ -13,6 +13,7 @@ class WeatherRestProvider:
         self.name = name
         self.weather_api_key = os.getenv(env_token_key)
         self.provider_c_api_key = os.getenv(env_token_key)
+        self.provider_d_api_key = os.getenv(env_token_key)
 
         
 
@@ -51,6 +52,19 @@ class WeatherRestProvider:
             return response.json()
         except requests.exceptions.RequestException as e:
             logger.error(f"Error fetching weather data for lat:{lat} lon:{lon} : {e}")
+            return None
+        
+    def weather_api_request_provider_d(self,city_name):
+        prov_d_base_url=os.getenv("provider_d_base_url")
+        prov_d_sufix=os.getenv("provider_d_sufix")
+        prov_d_api_key=self.provider_d_api_key
+        url=f'{prov_d_base_url}{city_name}{prov_d_sufix}{prov_d_api_key}'
+        try:
+            response = requests.get(url)
+            response.raise_for_status()  # Raise an error for bad status codes
+            return response.json()
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Error fetching weather data for city:{city_name}: {e}")
             return None
 
 
