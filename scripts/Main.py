@@ -132,7 +132,7 @@ def run_web_srapperD(city_name,city_id):
 
 
     all_data = []  # Tutaj będziemy zbierać dane
-    rest_scrapping=WeatherRestProvider("Visualcrossing","provider_d_api_key")
+    rest_scrapping=WeatherRestProvider("Visualcrossing","PROVIDER_D_API_KEY")
     scrapped_dict = rest_scrapping.weather_api_request_provider_d(city_name)
     today=datetime.datetime.now().date()
     for i in range(1,len(scrapped_dict['days'][:7])):
