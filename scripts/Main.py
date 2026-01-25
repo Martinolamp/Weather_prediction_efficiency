@@ -93,30 +93,52 @@ def run_webscrapperA(lat,lon,city_id):
         print(f" Błąd podczas pobierania danych pogodowych z OpenMeteo: {e}")
     
 
-def insert_weather_forecast_db(table_name,city_id,daily_temp_min,daily_temp_max):
-    pass
+def run_web_srapperC(lat,lon,city_id):
     
+    all_data = []  # Tutaj będziemy zbierać dane
+
+    try:
+        rest_scrapping=WeatherRestProvider("meteoblue","Web_api_provider_c_key")
+
+        scrapped_dict = rest_scrapping.weather_api_request_provider_c(lat, lon)
+        today=datetime.datetime.now().date()
+        t_min = scrapped_dict['data_day']['temperature_min'][1:]
+        t_max = scrapped_dict['data_day']['temperature_max'][1:]
+        
+        # Zamiast tworzyć DF tutaj, tworzymy listę słowników dla każdego dnia
+        for i in range(len(t_min)):
+            all_data.append({
+
+                'City_ref_id': city_id,
+                'Date': today,
+                'Max_temp': t_max[i],
+                'Min_temp': t_min[i],
+                'Provider_type':'C',
+                'Date_difference': i + 1
+            })
+            
+        
+
+    
+    except Exception as e:
+        print(f"Błąd dla miasta {city_id}: {e}")
+    print(all_data)
+    return all_data
+
     
 
 
 def main():
     cities = fetch_cities_from_db("Cities")
     all_data = []  # Tutaj będziemy zbierać dane
-    for city_id, city_name in cities.items():
-        try:
-            print(city_id,city_name[0])
-            scrapped_array =fetch_and_store_weather_data(city_name[0],city_id)
-            
-        except Exception as e:
-            print(f"Błąd dla miasta {city_id}: {e}")
-    
+    print(cities)
    
 
    
 
             
 if __name__ == "__main__":
-    print(main())
+    main()
    
 
 

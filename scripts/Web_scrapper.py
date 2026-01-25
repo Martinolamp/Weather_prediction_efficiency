@@ -20,7 +20,7 @@ class WebScrapperA:
 
     def fetch_data(self,lat,lon,city_id):
         url = f"{self.base_url}"
-        
+        #Returns forecast for the next 6 days
         params = {
         "latitude": lat,
         "longitude": lon,
