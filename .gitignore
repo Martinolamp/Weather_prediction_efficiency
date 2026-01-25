@@ -1,4 +1,4 @@
 .env
 .venv/
 logs/*
-!logs/.gitkeep
+!logs/.gitkeep.catche.sqlite
