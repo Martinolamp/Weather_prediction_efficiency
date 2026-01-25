@@ -19,12 +19,12 @@ def main():
             
 
     
-            #forecast_df = pd.DataFrame(scrapped_array)
+            forecast_df = pd.DataFrame(scrapped_array)
             
             
-            #data_dict = forecast_df.astype({'Date': str}).to_dict(orient='records')
-            #db_connection = SupbaseConnection()
-            #db_connection.insert_weather_forecast('Weather_forecast', data_dict)
+            data_dict = forecast_df.astype({'Date': str}).to_dict(orient='records')
+            db_connection = SupbaseConnection()
+            db_connection.insert_weather_forecast('Weather_forecast', data_dict)
             
             
 
