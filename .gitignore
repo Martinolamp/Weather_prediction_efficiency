@@ -2,3 +2,7 @@
 .venv/
 logs/*
 !logs/.gitkeep.catche.sqlite
+<<<<<<< HEAD
+=======
+.catche.sqlite
+>>>>>>> features-weather
