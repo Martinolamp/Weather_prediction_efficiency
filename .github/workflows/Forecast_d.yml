@@ -1,4 +1,4 @@
-name: Forecast_C
+name: Forecast_D
 
 on:
   schedule:
@@ -33,5 +33,5 @@ jobs:
           PROVIDER_D_API_KEY: ${{ secrets.PROVIDER_D_API_KEY }}
           PROVIDER_D_SUFIX: ${{ secrets.PROVIDER_D_SUFIX }}
           PROVIDER_D_BASE_URL: ${{ secrets.PROVIDER_D_BASE_URL }}
-        run: python scripts/Rest_daily_web_scraper_c.py
+        run: python scripts/Run_daily_web_scraper_d.py
            
