@@ -33,5 +33,5 @@ jobs:
           WEB_API_PROVIDER_C_KEY: ${{ secrets.WEB_API_PROVIDER_C_KEY }}
           PROVIDER_C_SUFIX: ${{ secrets.PROVIDER_C_SUFIX }}
           PROVIDER_C_BASE_URL: ${{ secrets.PROVIDER_C_BASE_URL }}
-        run: python scripts/Rest_daily_web_scraper_c.p
+        run: python scripts/Rest_daily_web_scraper_c.py
            
