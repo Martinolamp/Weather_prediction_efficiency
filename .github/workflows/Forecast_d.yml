@@ -6,7 +6,7 @@ on:
   workflow_dispatch:      # Przycisk do ręcznego odpalania
 
 jobs:
-  weather_job:
+  Prov_d:
     runs-on: ubuntu-latest
     steps:
       - name: Pobierz kod repozytorium

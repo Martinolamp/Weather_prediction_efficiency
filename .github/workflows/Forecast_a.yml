@@ -6,7 +6,7 @@ on:
   workflow_dispatch:      # Dodaje przycisk "Run workflow" do ręcznego testu
 
 jobs:
-  weather_job:
+  Prov_a:
     runs-on: ubuntu-latest
     steps:
       - name: Pobierz kod repozytorium
