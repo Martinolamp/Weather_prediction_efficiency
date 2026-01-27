@@ -2,7 +2,7 @@ name: Forecast_D
 
 on:
   schedule:
-    - cron: '10 3 * * *'  # Odpala się codziennie o 03:10 czasu UTC
+    - cron: '03 3 * * *'  # Odpala się codziennie o 03:10 czasu UTC
   workflow_dispatch:      # Przycisk do ręcznego odpalania
 
 jobs:

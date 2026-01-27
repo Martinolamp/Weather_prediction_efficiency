@@ -2,7 +2,7 @@ name: Pobieranie Prognozy Daily
 
 on:
   schedule:
-    - cron: '21 19 * * *'  # Odpala się co godzinę
+    - cron: '21 03 * * *'  # Odpala się co godzinę
   workflow_dispatch:      # Dodaje przycisk "Run workflow" do ręcznego testu
 
 jobs:
