@@ -43,7 +43,7 @@ def fetch_and_store_weather_data(cities,city_ref_id):
             current_date=datetime.date.today()
             #print(date)
             dict_to_insert={
-                "Date":date,
+                "Date":current_date,
                 "Date_difference":date_diff.days,
                 "Max_temp":max_temp,
                 "Min_temp":min_temp,
