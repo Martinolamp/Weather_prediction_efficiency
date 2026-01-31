@@ -1,14 +1,18 @@
 import streamlit as st
 import pandas as pd
+from Data_apps import fetch_cities_from_db
 from datetime import datetime
 
 # --- KONFIGURACJA STRONY ---
 st.set_page_config(page_title="Weather Dashboard", page_icon="⛅", layout="wide")
+
+city_names=fetch_cities_from_db('Cities')
 
 st.title("⛅ Monitor Skuteczności Prognoz Pogody")
 st.markdown("---")
 
 # --- BOCZNY PANEL (SIDEBAR) ---
 st.sidebar.header("Ustawienia")
-city = st.sidebar.selectbox("Wybierz miasto:", ["Lublin", "Katowice"])
+city = st.sidebar.selectbox("Wybierz miasto:", city_names)
 show_raw_data = st.sidebar.checkbox("Pokaż surowe dane")
+
