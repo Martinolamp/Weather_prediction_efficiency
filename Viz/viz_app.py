@@ -21,6 +21,7 @@ show_raw_data = st.sidebar.checkbox("Pokaż surowe dane")
 
 todays_data=fetch_todays_data('todays_weather')
 todays_df=pd.DataFrame(todays_data.data)
+todays_df = todays_df.sort_values(by='Daily_max', ascending=True)
 st.subheader("Aktualne odczyty (ostatnia godzina)")
 st.dataframe(todays_df, use_container_width=True)
 
@@ -28,5 +29,5 @@ st.dataframe(todays_df, use_container_width=True)
 st.subheader("Last hour temps")
 st.bar_chart(data=todays_df, x='City_name', y='Last_measure')
 st.subheader("Daily extremes")
-st.bar_chart(data=todays_df, x='City_name', y=['Daily_max','Daily_min'],color=["#FF4B4B", "#0000FF"])
+st.bar_chart(data=todays_df, x='City_name', y=['Daily_max','Daily_min'],color=["#FF4B4B", "#0000FF"],stack=False)
 
