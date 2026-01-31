@@ -28,5 +28,5 @@ st.dataframe(todays_df, use_container_width=True)
 st.subheader("Last hour temps")
 st.bar_chart(data=todays_df, x='City_name', y='Last_measure')
 st.subheader("Daily extremes")
-st.bar_chart(data=todays_df, x='Miasto', y=['Daily_max_temp','Daily_min_temp'],color=["#FF4B4B", "#0000FF"])
+st.bar_chart(data=todays_df, x='City_name', y=['Daily_max','Daily_min'],color=["#FF4B4B", "#0000FF"])
 
