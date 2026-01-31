@@ -22,7 +22,6 @@ def fetch_todays_data(table_name):
 
 todays_data=fetch_todays_data('todays_weather')
 
-print(todays_data)
 
-if __name__ == "__main__":
-    main()
+
+

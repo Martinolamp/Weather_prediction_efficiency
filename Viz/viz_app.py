@@ -9,7 +9,7 @@ st.set_page_config(page_title="Weather Dashboard", page_icon="⛅", layout="wide
 
 city_names=fetch_cities_from_db('Cities')
 
-print(city_names)
+
 
 st.title("⛅ Monitor Skuteczności Prognoz Pogody")
 st.markdown("---")
@@ -21,5 +21,12 @@ show_raw_data = st.sidebar.checkbox("Pokaż surowe dane")
 
 todays_data=fetch_todays_data('todays_weather')
 todays_df=pd.DataFrame(todays_data.data)
-print(todays_df)
+st.subheader("Aktualne odczyty (ostatnia godzina)")
+st.dataframe(todays_df, use_container_width=True)
+
+    # 4. Prosty wykres słupkowy dla szybkiego podglądu mrozu
+st.subheader("Last hour temps")
+st.bar_chart(data=todays_df, x='City_name', y='Last_measure')
+st.subheader("Daily extremes")
+st.bar_chart(data=todays_df, x='Miasto', y=['Daily_max_temp','Daily_min_temp'],color=["#FF4B4B", "#0000FF"])
 
