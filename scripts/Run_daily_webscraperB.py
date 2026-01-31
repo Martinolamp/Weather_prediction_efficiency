@@ -12,7 +12,7 @@ def main():
     for city_id, city_name in cities.items():
         try:
             scrapped_array =fetch_and_store_weather_data(city_name[0],city_id)
-            
+            print(scrapped_array)
         except Exception as e:
             print(f"Błąd dla miasta {city_id}: {e}")
 
