@@ -8,6 +8,8 @@ st.set_page_config(page_title="Weather Dashboard", page_icon="⛅", layout="wide
 
 city_names=fetch_cities_from_db('Cities')
 
+print(city_names)
+
 st.title("⛅ Monitor Skuteczności Prognoz Pogody")
 st.markdown("---")
 
