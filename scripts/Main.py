@@ -43,7 +43,7 @@ def fetch_and_store_weather_data(cities,city_ref_id):
             current_date=datetime.date.today()
             #print(date)
             dict_to_insert={
-                "Date":current_date,
+                "Date":current_date.isoformat(),
                 "Date_difference":date_diff.days,
                 "Max_temp":max_temp,
                 "Min_temp":min_temp,
@@ -52,7 +52,7 @@ def fetch_and_store_weather_data(cities,city_ref_id):
                 "Provider_type":"B"
             }
              
-            print(dict_to_insert)
+            #print(dict_to_insert)
             
             payload = db.insert_weather_data("Weather_forecast", dict_to_insert)
             print("✅ Wstawiono dane pogodowe:", dict_to_insert)  
