@@ -7,3 +7,4 @@ beautifulsoup4
 openmeteo_requests
 requests_cache
 retry_requests
+streamlit
