@@ -1,28 +1,28 @@
-name: Forecast_b
+name: Forecast_D
 
 on:
   schedule:
-    - cron: '45 03 * * *'  # Odpala się co dziennie
-  workflow_dispatch:      # Dodaje przycisk "Run workflow" do ręcznego testu
+    - cron: '03 3 * * *'  # Odpala się codziennie o 03:10 czasu UTC
+  workflow_dispatch:      # Przycisk do ręcznego odpalania
 
 jobs:
-  Prov_b:
+  Prov_d:
     runs-on: ubuntu-latest
     steps:
       - name: Pobierz kod repozytorium
         uses: actions/checkout@v4
 
       - name: Skonfiguruj Pythona
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
       - name: Zainstaluj biblioteki
         run: |
           pip install -r requirements.txt
+
       - name: Uruchom pobieranie danych
         env:
-          # Tutaj mapujesz swoje sekrety
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
           weatherapi_key: ${{ secrets.weatherapi_key }}
@@ -30,5 +30,8 @@ jobs:
           weather_api_sufix: ${{ secrets.weather_api_sufix }}
           weather_api_base_current: ${{ secrets.weather_api_base_current }}
           weather_api_current_suffix: ${{ secrets.weather_api_current_suffix }}
-          WEB_SCRAPPER_BASE_URL_A: ${{ secrets.WEB_SCRAPPER_BASE_URL_A }}
-        run: python scripts/Run_daily_webscraperB.py
+          PROVIDER_D_API_KEY: ${{ secrets.PROVIDER_D_API_KEY }}
+          PROVIDER_D_SUFIX: ${{ secrets.PROVIDER_D_SUFIX }}
+          PROVIDER_D_BASE_URL: ${{ secrets.PROVIDER_D_BASE_URL }}
+        run: python scripts/Run_daily_web_scraper_d.py
+           

@@ -42,8 +42,8 @@ class WeatherRestProvider:
             return None
 
     def weather_api_request_provider_c(self,lat,lon):
-        prov_c_base_url=os.getenv("provider_c_base_url")
-        prov_c_sufix=os.getenv("provider_c_sufix")
+        prov_c_base_url=os.getenv("PROVIDER_C_BASE_URL")
+        prov_c_sufix=os.getenv("PROVIDER_C_SUFIX")
         prov_c_api_key=self.provider_c_api_key
         url=f'{prov_c_base_url}{prov_c_api_key}&lat={lat}&lon={lon}{prov_c_sufix}'
         try:
@@ -55,8 +55,8 @@ class WeatherRestProvider:
             return None
         
     def weather_api_request_provider_d(self,city_name):
-        prov_d_base_url=os.getenv("provider_d_base_url")
-        prov_d_sufix=os.getenv("provider_d_sufix")
+        prov_d_base_url=os.getenv("PROVIDER_D_BASE_URL")
+        prov_d_sufix=os.getenv("PROVIDER_D_SUFIX")
         prov_d_api_key=self.provider_d_api_key
         url=f'{prov_d_base_url}{city_name}{prov_d_sufix}{prov_d_api_key}'
         try:

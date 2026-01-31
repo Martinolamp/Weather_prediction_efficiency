@@ -12,6 +12,9 @@ def main():
     #print(cities)
     for city_id, (city_name, lon, lat) in cities.items():
         try:
+
+            #print(type(lon),type(lat),type(city_id))
+
             scrapped_array = run_web_srapperC(lat, lon, city_id)
             
 
@@ -23,15 +26,15 @@ def main():
             db_connection = SupbaseConnection()
             db_connection.insert_weather_forecast('Weather_forecast', data_dict)
             
+            
+
+    
+        
+            
         except Exception as e:
             print(f"Błąd dla miasta {city_id}: {e}")
-    
+            
 
-
-
-   
 
 if __name__ == "__main__":
-    
     main()
-    

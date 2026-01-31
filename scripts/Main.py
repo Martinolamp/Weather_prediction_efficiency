@@ -43,7 +43,7 @@ def fetch_and_store_weather_data(cities,city_ref_id):
             current_date=datetime.date.today()
             #print(date)
             dict_to_insert={
-                "Date":date,
+                "Date":current_date,
                 "Date_difference":date_diff.days,
                 "Max_temp":max_temp,
                 "Min_temp":min_temp,
@@ -98,15 +98,16 @@ def run_web_srapperC(lat,lon,city_id):
     all_data = []  # Tutaj będziemy zbierać dane
 
     try:
-        rest_scrapping=WeatherRestProvider("meteoblue","Web_api_provider_c_key")
+        rest_scrapping=WeatherRestProvider("meteoblue","WEB_API_PROVIDER_C_KEY")
 
         scrapped_dict = rest_scrapping.weather_api_request_provider_c(lat, lon)
         today=datetime.datetime.now().date()
         t_min = scrapped_dict['data_day']['temperature_min'][1:]
         t_max = scrapped_dict['data_day']['temperature_max'][1:]
-        
+        print(t_min,t_max)
         # Zamiast tworzyć DF tutaj, tworzymy listę słowników dla każdego dnia
-        for i in range(len(t_min)):
+        for i in range(1,len(scrapped_dict['data_day']['temperature_min'][1:])):
+            
             all_data.append({
 
                 'City_ref_id': city_id,
@@ -114,7 +115,7 @@ def run_web_srapperC(lat,lon,city_id):
                 'Max_temp': t_max[i],
                 'Min_temp': t_min[i],
                 'Provider_type':'C',
-                'Date_difference': i + 1
+                'Date_difference': i
             })
             
         
@@ -122,7 +123,7 @@ def run_web_srapperC(lat,lon,city_id):
     
     except Exception as e:
         print(f"Błąd dla miasta {city_id}: {e}")
-    print(all_data)
+    
     return all_data
 
 
@@ -131,7 +132,7 @@ def run_web_srapperD(city_name,city_id):
 
 
     all_data = []  # Tutaj będziemy zbierać dane
-    rest_scrapping=WeatherRestProvider("Visualcrossing","provider_d_api_key")
+    rest_scrapping=WeatherRestProvider("Visualcrossing","PROVIDER_D_API_KEY")
     scrapped_dict = rest_scrapping.weather_api_request_provider_d(city_name)
     today=datetime.datetime.now().date()
     for i in range(1,len(scrapped_dict['days'][:7])):

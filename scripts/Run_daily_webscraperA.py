@@ -25,7 +25,7 @@ def main():
                     'Provider_type':'A',
                     'Date_difference': i + 1
                 })
-                
+            
         except Exception as e:
             print(f"Błąd dla miasta {city_id}: {e}")
     return all_data

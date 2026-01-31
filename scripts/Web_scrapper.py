@@ -15,8 +15,8 @@ class WebScrapperA:
         self.base_url = os.getenv("WEB_SCRAPPER_BASE_URL_A")
         #self.api_key = os.getenv("WEB_SCRAPPER_API_KEY")
         cache_session = requests_cache.CachedSession('.cache', expire_after = 3600)
-        retry_session = retry(cache_session, retries = 5, backoff_factor = 0.2)
-        self.opopenmeteo = openmeteo_requests.Client()
+        retry_session = retry(cache_session, retries = 10, backoff_factor = 0.5)
+        self.opopenmeteo = openmeteo_requests.Client(session=retry_session)
 
     def fetch_data(self,lat,lon,city_id):
         url = f"{self.base_url}"
