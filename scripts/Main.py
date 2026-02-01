@@ -30,6 +30,7 @@ def fetch_and_store_weather_data(cities,city_ref_id):
     weather=WeatherRestProvider("weatherapi","weatherapi_key")
     #db = SupbaseConnection()
     response=weather.weather_api_request(cities,True)
+    current_date=datetime.date.today().isoformat()
     #print(response)
     try:
         
@@ -40,10 +41,10 @@ def fetch_and_store_weather_data(cities,city_ref_id):
             min_temp=response['forecast']['forecastday'][i]['day']['mintemp_c']
             max_temp=response['forecast']['forecastday'][i]['day']['maxtemp_c']
             date_diff=datetime.datetime.strptime(date, '%Y-%m-%d').date() - datetime.date.today()
-            current_date=datetime.date.today()
+            
             #print(date)
             dict_to_insert={
-                "Date":current_date.isoformat(),
+                "Date":current_date,
                 "Date_difference":date_diff.days,
                 "Max_temp":max_temp,
                 "Min_temp":min_temp,
