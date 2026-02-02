@@ -143,7 +143,7 @@ def run_web_srapperD(city_name,city_id):
                 'Max_temp': scrapped_dict['days'][i]['tempmax'],
                 'Min_temp': scrapped_dict['days'][i]['tempmin'],
                 'Provider_type':'D',
-                'Date_difference': i + 1
+                'Date_difference': i 
             })
 
        
