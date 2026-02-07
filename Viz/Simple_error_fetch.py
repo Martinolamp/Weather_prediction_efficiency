@@ -3,6 +3,7 @@ import pandas as pd
 from datetime import datetime
 import sys
 import os
+import json
 # Dodaje folder główny projektu (poziom wyżej niż Viz) do ścieżek wyszukiwania Pythona
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from scripts.Supabase_operatoins import SupbaseConnection
@@ -25,4 +26,7 @@ def get_data_from_views(table_name):
 
 resp=simple_error_view=get_data_from_views('simple error')
 
-print(resp)
+df = pd.DataFrame(resp.data)
+print(df)
+
+
