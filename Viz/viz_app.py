@@ -46,8 +46,6 @@ elif view == "Error analysis":
     # --- WIDOK 1: Temperatura Maksymalna ---
     st.subheader("Mean simple error in max temperature weather data prediction")
    
-    st.line_chart(pivot_max_simple)
-
     st.line_chart(
     pivot_max_simple, 
     x_label="Weather data for upcoming days", 
@@ -57,8 +55,6 @@ elif view == "Error analysis":
     # --- WIDOK 2: Temperatura Minimalna ---
     st.subheader("Mean error in min temperature weather data prediction")
     
-    st.line_chart(pivot_min_simple)
-
     st.line_chart(
     pivot_min_simple, 
     x_label="Weather data for upcoming days", 
@@ -69,8 +65,7 @@ elif view == "Error analysis":
 # --- WIDOK 1: Temperatura Maksymalna ---
     st.subheader("Mean error in max temperature weather data prediction")
    
-    st.line_chart(pivot_max_mean)
-
+    
     st.line_chart(
     pivot_max_mean, 
     x_label="Weather data for upcoming days", 
@@ -80,7 +75,6 @@ elif view == "Error analysis":
     # --- WIDOK 2: Temperatura Minimalna ---
     st.subheader("Mean error in min temperature weather data prediction")
     
-    st.line_chart(pivot_min_mean)
 
     st.line_chart(
     pivot_min_mean, 
