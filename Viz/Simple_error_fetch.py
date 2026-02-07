@@ -12,11 +12,11 @@ from scripts.Supabase_operatoins import SupbaseConnection
 db = SupbaseConnection()
 client = db.get_client()
 
-def get_data_from_views(table_name):
+def get_simple_error_data(table_name):
     try:
 
         response = client.table(table_name).select("*").execute()
-
+        response=pd.DataFrame(response.data)
         return response
     except:
         print(f" Błąd podczas pobierania danych z {table_name}: {e}")
@@ -24,9 +24,8 @@ def get_data_from_views(table_name):
         return []
     
 
-resp=simple_error_view=get_data_from_views('simple error')
+resp=simple_error_view=get_simple_error_data('simple error')
+print(resp)
 
-df = pd.DataFrame(resp.data)
-print(df)
 
 

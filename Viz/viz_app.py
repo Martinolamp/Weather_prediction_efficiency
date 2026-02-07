@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from Data_apps import fetch_cities_from_db
 from First_viz import fetch_todays_data
+from Simple_error_fetch import get_simple_error_data
 from datetime import datetime
 
 #wykresy bledow
@@ -19,19 +20,37 @@ st.title("⛅ Monitor Skuteczności Prognoz Pogody")
 st.markdown("---")
 
 # --- BOCZNY PANEL (SIDEBAR) ---
-st.sidebar.header("Ustawienia")
-city = st.sidebar.selectbox("Wybierz miasto:", city_names)
-show_raw_data = st.sidebar.checkbox("Pokaż surowe dane")
+#st.sidebar.header("Ustawienia")
+#city = st.sidebar.selectbox("Wybierz miasto:", city_names)
+#show_raw_data = st.sidebar.checkbox("Pokaż surowe dane")
+if view =="Todays weather":
+    todays_data=fetch_todays_data('todays_weather')
+    todays_df=pd.DataFrame(todays_data.data)
+    todays_df = todays_df.sort_values(by='Daily_max', ascending=True)
+    st.subheader("Aktualne odczyty (ostatnia godzina)")
+    st.dataframe(todays_df, use_container_width=True)
 
-todays_data=fetch_todays_data('todays_weather')
-todays_df=pd.DataFrame(todays_data.data)
-todays_df = todays_df.sort_values(by='Daily_max', ascending=True)
-st.subheader("Aktualne odczyty (ostatnia godzina)")
-st.dataframe(todays_df, use_container_width=True)
+        # 4. Prosty wykres słupkowy dla szybkiego podglądu mrozu
+    st.subheader("Last hour temps")
+    st.bar_chart(data=todays_df, x='City_name', y='Last_measure')
+    st.subheader("Daily extremes")
+    st.bar_chart(data=todays_df.sort_values(by='Daily_max', ascending=True), x='City_name', y=['Daily_max','Daily_min'],color=["#FF4B4B", "#0000FF"],stack=False)
+elif view == "Error analysis":
+    simple_error_analysis=get_simple_error_data('simple error')
+    pivot_max = simple_error_analysis.pivot(index='Date_difference', columns='Provider_type', values='avg_error_max')
+    pivot_min = simple_error_analysis.pivot(index='Date_difference', columns='Provider_type', values='avg_error_min')
 
-    # 4. Prosty wykres słupkowy dla szybkiego podglądu mrozu
-st.subheader("Last hour temps")
-st.bar_chart(data=todays_df, x='City_name', y='Last_measure')
-st.subheader("Daily extremes")
-st.bar_chart(data=todays_df.sort_values(by='Daily_max', ascending=True), x='City_name', y=['Daily_max','Daily_min'],color=["#FF4B4B", "#0000FF"],stack=False)
+    # --- WIDOK 1: Temperatura Maksymalna ---
+    st.subheader("Błąd prognozy temperatury MAKSYMALNEJ (dzień)")
+    st.write("Wykres pokazuje, o ile stopni średnio mylą się dostawcy w prognozach dziennych.")
+    st.line_chart(pivot_max)
+
+    # --- WIDOK 2: Temperatura Minimalna ---
+    st.subheader("Błąd prognozy temperatury MINIMALNEJ (noc)")
+    st.write("Często trudniejsza do przewidzenia ze względu na lokalne warunki i wypromieniowanie ciepła.")
+    st.line_chart(pivot_min)
+
+    
+
+
 
