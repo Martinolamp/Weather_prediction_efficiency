@@ -41,13 +41,13 @@ elif view == "Error analysis":
     pivot_min = simple_error_analysis.pivot(index='Date_difference', columns='Provider_type', values='avg_error_min')
 
     # --- WIDOK 1: Temperatura Maksymalna ---
-    st.subheader("Błąd prognozy temperatury MAKSYMALNEJ (dzień)")
-    st.write("Wykres pokazuje, o ile stopni średnio mylą się dostawcy w prognozach dziennych.")
+    st.subheader("Mean error in max weather data prediction")
+   
     st.line_chart(pivot_max)
 
     # --- WIDOK 2: Temperatura Minimalna ---
-    st.subheader("Błąd prognozy temperatury MINIMALNEJ (noc)")
-    st.write("Często trudniejsza do przewidzenia ze względu na lokalne warunki i wypromieniowanie ciepła.")
+    st.subheader("Mean error in min weather data prediction")
+    
     st.line_chart(pivot_min)
 
     
