@@ -53,7 +53,7 @@ elif view == "Error analysis":
     )   
 
     # --- WIDOK 2: Temperatura Minimalna ---
-    st.subheader("Mean error in min temperature weather data prediction")
+    st.subheader("Mean absolute error in min temperature weather data prediction")
     
     st.line_chart(
     pivot_min_simple, 
@@ -63,7 +63,7 @@ elif view == "Error analysis":
 
 
 # --- WIDOK 1: Temperatura Maksymalna ---
-    st.subheader("Mean error in max temperature weather data prediction")
+    st.subheader("Mean absolute error in max temperature weather data prediction")
    
     
     st.line_chart(
