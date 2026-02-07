@@ -38,11 +38,13 @@ if view =="Todays weather":
 elif view == "Error analysis":
     simple_error_analysis=get_simple_error_data('simple error')
     mean_error_analysis=get_simple_error_data('mean absolute error')
+    mean_square_error_analysis=get_simple_error_data('root mean square error')
     pivot_max_simple = simple_error_analysis.pivot(index='Date_difference', columns='Provider_type', values='avg_error_max')
     pivot_min_simple = simple_error_analysis.pivot(index='Date_difference', columns='Provider_type', values='avg_error_min')
     pivot_max_mean= mean_error_analysis.pivot(index='Date_difference', columns='Provider_type', values='avg_error_max')
     pivot_min_mean= mean_error_analysis.pivot(index='Date_difference', columns='Provider_type', values='avg_error_min')
-
+    pivot_max_root_error = mean_square_error_analysis.pivot(index='Date_difference', columns='Provider_type', values='avg_error_max')
+    pivot_min_root_error = mean_square_error_analysis.pivot(index='Date_difference', columns='Provider_type', values='avg_error_max')
     # --- WIDOK 1: Temperatura Maksymalna ---
     st.subheader("Mean simple error in max temperature weather data prediction")
    
@@ -51,6 +53,28 @@ elif view == "Error analysis":
     x_label="Days of forecast", 
     y_label="Mean Error (°C)"
     )   
+
+
+    st.subheader("Mean absolute error in max temperature weather data prediction")
+   
+    
+    st.line_chart(
+    pivot_max_mean, 
+    x_label="Days of forecast", 
+    y_label="Mean Error (°C)"
+    )   
+
+
+    st.subheader("Root mean square error in max temperature weather data prediction")
+   
+    
+    st.line_chart(
+    pivot_max_root_error, 
+    x_label="Days of forecast", 
+    y_label="Mean Error (°C)"
+    )   
+
+
 
     # --- WIDOK 2: Temperatura Minimalna ---
     st.subheader("Mean simple error in min temperature weather data prediction")
@@ -62,15 +86,6 @@ elif view == "Error analysis":
     ) 
 
 
-# --- WIDOK 1: Temperatura Maksymalna ---
-    st.subheader("Mean absolute error in max temperature weather data prediction")
-   
-    
-    st.line_chart(
-    pivot_max_mean, 
-    x_label="Days of forecast", 
-    y_label="Mean Error (°C)"
-    )   
 
     # --- WIDOK 2: Temperatura Minimalna ---
     st.subheader("Mean absolute error in min temperature weather data prediction")
@@ -81,6 +96,15 @@ elif view == "Error analysis":
     x_label="Days of forecast", 
     y_label="Mean Error (°C)"
     ) 
+
+    st.subheader("Root mean square error in max temperature weather data prediction")
+   
+    
+    st.line_chart(
+    pivot_min_root_error, 
+    x_label="Days of forecast", 
+    y_label="Mean Error (°C)"
+    )   
     
 
 
