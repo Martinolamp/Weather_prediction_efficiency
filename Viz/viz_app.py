@@ -3,9 +3,13 @@ import pandas as pd
 from Data_apps import fetch_cities_from_db
 from First_viz import fetch_todays_data
 from datetime import datetime
+import plotly.express as px
 
 # --- KONFIGURACJA STRONY ---
 st.set_page_config(page_title="Weather Dashboard", page_icon="⛅", layout="wide")
+
+st.sidebar.title("Nawigacja")
+view = st.sidebar.radio("Wybierz widok:", ["Todays weather", "Error analysis"])
 
 city_names=fetch_cities_from_db('Cities')
 
