@@ -97,7 +97,7 @@ elif view == "Error analysis":
     y_label="Mean Error (°C)"
     ) 
 
-    st.subheader("Root mean square error in max temperature weather data prediction")
+    st.subheader("Root mean square error in min temperature weather data prediction")
    
     
     st.line_chart(
