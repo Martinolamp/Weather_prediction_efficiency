@@ -12,9 +12,9 @@ st.set_page_config(page_title="Weather Dashboard", page_icon="⛅", layout="wide
 st.sidebar.title("Nawigacja")
 view = st.sidebar.radio("Wybierz widok:", ["Todays weather", "Error analysis","City Forecast"])
 
-city_names=fetch_cities_from_db('Cities')
+#city_names=fetch_cities_from_db('Cities')
 
-print(city_names)
+#print(city_names)
 
 
 
@@ -109,8 +109,9 @@ elif view == "Error analysis":
     )   
 
 elif view == "City Forecast":
-    
+    city_names=fetch_cities_from_db('Cities')
     st.sidebar.header("Cities")
-    selected_city = st.sidebar.selectbox("Choose city:",city_names)
+    print(city_names[0])
+    #selected_city = st.sidebar.selectbox("Choose city:",city_names[0])
 
 
