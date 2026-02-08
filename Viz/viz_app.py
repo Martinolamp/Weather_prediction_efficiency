@@ -3,6 +3,7 @@ import pandas as pd
 from Data_apps import fetch_cities_from_db
 from First_viz import fetch_todays_data
 from Simple_error_fetch import get_simple_error_data
+from Weather_forcast_querry import fetch_forcast_for_city
 from datetime import datetime
 
 #wykresy bledow
@@ -114,6 +115,8 @@ elif view == "City Forecast":
     city_list=list(city_names)
     #print(city_list[0])
     selected_city = st.sidebar.selectbox("Choose city:",city_list[0])
-    print(selected_city)
+    city_id=city_list[1][city_list.index(selected_city)]
+    forcast_df=pd.DataFrame(fetch_forcast_for_city(city_id))
+    st.dataframe(forcast_df, use_container_width=True)
 
 
