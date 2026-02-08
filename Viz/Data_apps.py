@@ -35,5 +35,6 @@ def fetch_cities_from_db(table_name):
 city_names=fetch_cities_from_db('Cities')
 
 if __name__ == "__main__":
-    lista_miast=list(fetch_cities_from_db('Cities'))
-    print(lista_miast[0])
+    #lista_miast=list(fetch_cities_from_db('Cities'))
+    main()
+    
