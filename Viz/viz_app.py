@@ -118,7 +118,7 @@ elif view == "City Forecast":
     st.subheader(city_list[1][city_list[0].index(selected_city)])
     #st.subheader("test")
     #city_id=city_list[1][city_list[0].index(selected_city)]
-    #forcast_df=pd.DataFrame(fetch_forcast_for_city(city_id))
-    #st.dataframe(forcast_df, use_container_width=True)tetstest
+    forcast_df=pd.DataFrame(fetch_forcast_for_city(city_list[1][city_list[0].index(selected_city)]))
+    st.dataframe(forcast_df, use_container_width=True)tetstest
 
 
