@@ -10,9 +10,11 @@ from datetime import datetime
 st.set_page_config(page_title="Weather Dashboard", page_icon="⛅", layout="wide")
 
 st.sidebar.title("Nawigacja")
-view = st.sidebar.radio("Wybierz widok:", ["Todays weather", "Error analysis"])
+view = st.sidebar.radio("Wybierz widok:", ["Todays weather", "Error analysis","City Forecast"])
 
 city_names=fetch_cities_from_db('Cities')
+
+print(city_names)
 
 
 
@@ -51,7 +53,7 @@ elif view == "Error analysis":
     st.line_chart(
     pivot_max_simple, 
     x_label="Days of forecast", 
-    y_label="Mean Error (°C)"
+    y_label="Mean Simple Error (°C)"
     )   
 
 
@@ -61,7 +63,7 @@ elif view == "Error analysis":
     st.line_chart(
     pivot_max_mean, 
     x_label="Days of forecast", 
-    y_label="Mean Error (°C)"
+    y_label="Mean Absolute Error (°C)"
     )   
 
 
@@ -71,7 +73,7 @@ elif view == "Error analysis":
     st.line_chart(
     pivot_max_root_error, 
     x_label="Days of forecast", 
-    y_label="Mean Error (°C)"
+    y_label="Mean Swuare Error (°C)"
     )   
 
 
@@ -82,7 +84,7 @@ elif view == "Error analysis":
     st.line_chart(
     pivot_min_simple, 
     x_label="Days of forecast", 
-    y_label="Mean Error (°C)"
+    y_label="Mean Simple Error (°C)"
     ) 
 
 
@@ -94,7 +96,7 @@ elif view == "Error analysis":
     st.line_chart(
     pivot_min_mean, 
     x_label="Days of forecast", 
-    y_label="Mean Error (°C)"
+    y_label="Mean Simple Error (°C)"
     ) 
 
     st.subheader("Root mean square error in min temperature weather data prediction")
@@ -103,9 +105,12 @@ elif view == "Error analysis":
     st.line_chart(
     pivot_min_root_error, 
     x_label="Days of forecast", 
-    y_label="Mean Error (°C)"
+    y_label="Mean Simple Error (°C)"
     )   
-    
 
+elif view == "City Forecast":
+    
+st.sidebar.header("Ustawienia")
+selected_city = st.sidebar.selectbox("Wybierz miasto:",city_names)
 
 
