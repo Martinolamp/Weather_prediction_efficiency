@@ -111,7 +111,8 @@ elif view == "Error analysis":
 elif view == "City Forecast":
     city_names=fetch_cities_from_db('Cities')
     st.sidebar.header("Cities")
-   
-    selected_city = st.sidebar.selectbox("Choose city:",city_names[0])
+    city_list=list(city_names)
+    print(city_list[0])
+    #selected_city = st.sidebar.selectbox("Choose city:",city_names[0])
 
 

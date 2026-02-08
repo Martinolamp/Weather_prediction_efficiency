@@ -26,15 +26,15 @@ def fetch_cities_from_db(table_name):
         city_names=list(cities_dict.keys())
         city_id=list(cities_dict.values())
         
-        return list(city_names,city_id)
+        return city_names,city_id
     except Exception as e:
         print(f" Błąd podczas pobierania miast z {table_name}: {e}")
         return []
     
 
-city_names=fetch_cities_from_db('Cities')
+#city_names=fetch_cities_from_db('Cities')
 
 if __name__ == "__main__":
-    #lista_miast=list(fetch_cities_from_db('Cities'))
-    main()
+    print(fetch_cities_from_db('Cities'))
+    
     
