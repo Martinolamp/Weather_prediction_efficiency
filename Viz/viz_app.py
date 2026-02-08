@@ -115,7 +115,9 @@ elif view == "City Forecast":
     city_list=list(city_names)
     selected_city = st.sidebar.selectbox("Choose city:",city_list[0])
     st.subheader(selected_city)
-    #city_id=city_list[1][city_list.index(selected_city)]
+    st.subheader(city_list[0].index(selected_city))
+    st.subheader("test")
+    #city_id=city_list[1][city_list[0].index(selected_city)]
     #forcast_df=pd.DataFrame(fetch_forcast_for_city(city_id))
     #st.dataframe(forcast_df, use_container_width=True)tetstest
 
