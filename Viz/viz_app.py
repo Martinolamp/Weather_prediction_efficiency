@@ -110,7 +110,7 @@ elif view == "Error analysis":
 
 elif view == "City Forecast":
     
-st.sidebar.header("Ustawienia")
-selected_city = st.sidebar.selectbox("Wybierz miasto:",city_names)
+    st.sidebar.header("Cities")
+    selected_city = st.sidebar.selectbox("Choose city:",city_names)
 
 
