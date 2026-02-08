@@ -114,5 +114,6 @@ elif view == "City Forecast":
     city_list=list(city_names)
     #print(city_list[0])
     selected_city = st.sidebar.selectbox("Choose city:",city_list[0])
+    print(selected_city)
 
 
