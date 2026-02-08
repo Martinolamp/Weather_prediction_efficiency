@@ -121,12 +121,22 @@ elif view == "City Forecast":
     forcast_df=pd.DataFrame(fetch_forcast_for_city(city_list[1][city_list[0].index(selected_city)]))
     
     #test
-    pivot_forcast= forcast_df.pivot(index='Date_difference', columns='Provider_type', values='Max temp forcast')
+    pivot_forcast_max= forcast_df.pivot(index='Date_difference', columns='Provider_type', values='Max temp forcast')
 
 
     st.line_chart(
-    pivot_forcast, 
+    pivot_forcast_max, 
     x_label="Days of forecast", 
     y_label="Max temp forcast (°C)"
     ) 
+    
+    pivot_forcast_min= forcast_df.pivot(index='Date_difference', columns='Provider_type', values='Min temp forcast')
+
+
+    st.line_chart(
+    pivot_forcast_min, 
+    x_label="Days of forecast", 
+    y_label="Min temp forcast (°C)"
+    ) 
+    
 
