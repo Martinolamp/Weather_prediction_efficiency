@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from Data_apps import fetch_cities_from_db
 from First_viz import fetch_todays_data
-from Simple_error_fetch import get_simple_error_data,get_error_per_city
+from Simple_error_fetch import get_simple_error_data,get_error_per_city_min,get_error_per_city_max
 from Weather_forcast_querry import fetch_forcast_for_city
 from datetime import datetime
 
@@ -121,7 +121,7 @@ elif view == "City Forecast":
     forcast_df=pd.DataFrame(fetch_forcast_for_city(city_list[1][city_list[0].index(selected_city)]))
     
     #test
-    pivot_forcast_max= forcast_df.pivot(index='Forcast_dat', columns='Provider_type', values='Max temp forcast')
+    pivot_forcast_max= forcast_df.pivot_table(index='Forcast_dat', columns='Provider_type', values='Max temp forcast')
 
 
     st.line_chart(
@@ -130,7 +130,7 @@ elif view == "City Forecast":
     y_label="Max temp forcast (°C)"
     ) 
     
-    pivot_forcast_min= forcast_df.pivot(index='Forcast_dat', columns='Provider_type', values='Min temp forcast')
+    pivot_forcast_min= forcast_df.pivot_table(index='Forcast_dat', columns='Provider_type', values='Min temp forcast')
 
 
     st.line_chart(
@@ -139,7 +139,17 @@ elif view == "City Forecast":
     y_label="Min temp forcast (°C)"
     ) 
     
-    error_matrix_per_city=get_error_per_city('Errors_for_city')
-    print(error_matrix_per_city)
-    #pivot_min_mean= mean_error_analysis.pivot(index='Date_difference', columns='Provider_type', values='avg_error_min')
+    error__min_matrix_per_city=get_error_per_city_min('Errors_for_city')
+
+    #print(error__min_matrix_per_city)
+    st.subheader("Error table in min temperature for different providers")
+    st.dataframe(error__min_matrix_per_city, use_container_width=True)
+
+    error__min_matrix_per_city=get_error_per_city_max('Errors_for_city')
+    st.subheader("Error table in mmax temperature for different providers")
+    st.dataframe(error__min_matrix_per_city, use_container_width=True)
+
+    
+    
+   
 
