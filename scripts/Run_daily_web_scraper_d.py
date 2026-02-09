@@ -17,7 +17,7 @@ def main():
 
     
             forecast_df = pd.DataFrame(scrapped_array)
-            
+            print(forecast_df)
             
             data_dict = forecast_df.astype({'Date': str}).to_dict(orient='records')
             db_connection = SupbaseConnection()

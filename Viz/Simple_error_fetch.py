@@ -23,9 +23,26 @@ def get_simple_error_data(table_name):
 
         return []
     
+def get_error_per_city(table_name):
 
-resp=simple_error_view=get_simple_error_data('simple error')
-print(resp)
+    try:
+
+        response = client.table(table_name).select("*").execute()
+        response=pd.DataFrame(response.data)
+        return response
+    except:
+        print(f" Błąd podczas pobierania danych z {table_name}: {e}")
+
+    return []
+    
+
+#resp=simple_error_view=get_simple_error_data('simple error')
+
+resp=get_error_per_city('Errors_for_city')
+
+pivot_min_mean= resp.pivot_table(index='Date_difference', columns='Provider_type', values='avg_error_min')
+
+print(pivot_min_mean.round(1).fillna('no forecast'))
 
 
 
