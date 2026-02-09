@@ -15,15 +15,16 @@ def main():
             t_min = scrapped_array[2][1:]
             t_max = scrapped_array[1][1:]
             
+        
             # Zamiast tworzyć DF tutaj, tworzymy listę słowników dla każdego dnia
-            for i in range(len(t_min)):
+            for i in range(1,len(t_min)):
                 all_data.append({
                     'City_ref_id': city_id,
                     'Date': measure_date,
                     'Max_temp': t_max[i],
                     'Min_temp': t_min[i],
                     'Provider_type':'A',
-                    'Date_difference': i + 1
+                    'Date_difference': i
                 })
             
         except Exception as e:
