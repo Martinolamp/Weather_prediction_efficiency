@@ -39,23 +39,15 @@ if view =="Todays weather":
     st.subheader("Daily extremes")
     st.bar_chart(data=todays_df.sort_values(by='Daily_max', ascending=True), x='City_name', y=['Daily_max','Daily_min'],color=["#FF4B4B", "#0000FF"],stack=False)
 elif view == "Error analysis":
-    simple_error_analysis=get_simple_error_data('simple error')
+    
     mean_error_analysis=get_simple_error_data('mean absolute error')
     mean_square_error_analysis=get_simple_error_data('root mean square error')
-    pivot_max_simple = simple_error_analysis.pivot(index='Date_difference', columns='Provider_type', values='avg_error_max')
-    pivot_min_simple = simple_error_analysis.pivot(index='Date_difference', columns='Provider_type', values='avg_error_min')
     pivot_max_mean= mean_error_analysis.pivot(index='Date_difference', columns='Provider_type', values='avg_error_max')
     pivot_min_mean= mean_error_analysis.pivot(index='Date_difference', columns='Provider_type', values='avg_error_min')
     pivot_max_root_error = mean_square_error_analysis.pivot(index='Date_difference', columns='Provider_type', values='avg_error_max')
     pivot_min_root_error = mean_square_error_analysis.pivot(index='Date_difference', columns='Provider_type', values='avg_error_max')
     # --- WIDOK 1: Temperatura Maksymalna ---
-    st.subheader("Mean simple error in max temperature weather data prediction")
-   
-    st.line_chart(
-    pivot_max_simple, 
-    x_label="Days of forecast", 
-    y_label="Mean Simple Error (°C)"
-    )   
+    
 
 
     st.subheader("Mean absolute error in max temperature weather data prediction")
@@ -80,15 +72,7 @@ elif view == "Error analysis":
 
 
     # --- WIDOK 2: Temperatura Minimalna ---
-    st.subheader("Mean simple error in min temperature weather data prediction")
     
-    st.line_chart(
-    pivot_min_simple, 
-    x_label="Days of forecast", 
-    y_label="Mean Simple Error (°C)"
-    ) 
-
-
 
     # --- WIDOK 2: Temperatura Minimalna ---
     st.subheader("Mean absolute error in min temperature weather data prediction")
@@ -147,7 +131,7 @@ elif view == "City Forecast":
     st.dataframe(error__min_matrix_per_city, use_container_width=True)
 
     error__min_matrix_per_city=get_error_per_city_max('Errors_for_city',city_id)
-    st.subheader("Error table for mmax temperature for different providers")
+    st.subheader("Error table for max temperature for different providers")
     st.dataframe(error__min_matrix_per_city, use_container_width=True)
 
     
