@@ -55,13 +55,14 @@ def get_error_per_city_max(table_name,city_id):
 
 #resp=simple_error_view=get_simple_error_data('simple error')
 
-resp=get_error_per_city_min('Errors_for_city')
+resp=get_error_per_city_min('Errors_for_city',16)
 print(resp)
 #pivot_min_mean= resp.pivot_table(index='Date_difference', columns='Provider_type', values='avg_error_min')
 
 #print(pivot_min_mean.round(1).fillna('no forecast'))
 
-
+def main():  
+    pass
 
 if __name__ == "__main__":
     main()
