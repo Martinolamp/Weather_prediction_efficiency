@@ -1,5 +1,6 @@
 import sys
 import os
+from datetime import date
 
 # Dodaje folder główny projektu (poziom wyżej niż Viz) do ścieżek wyszukiwania Pythona
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -18,7 +19,8 @@ def fetch_forcast_for_city(city_id):
     #db = SupbaseConnection()
     #client = db.get_client()
     try:
-        response = client.table("Forcast_for_city").select("*").eq("City_ref_id", city_id).execute()
+        dzis=date.today()
+        response = client.table("Forcast_for_city").select("*").eq("City_ref_id", city_id).gt("Forcast_dat",dzis).execute()
         weather = response.data
         return weather
         
