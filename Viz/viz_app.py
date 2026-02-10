@@ -118,6 +118,7 @@ elif view == "City Forecast":
     st.subheader(city_list[1][city_list[0].index(selected_city)])
     #st.subheader("test")
     #city_id=city_list[1][city_list[0].index(selected_city)]
+    city_id=city_list[1][city_list[0].index(selected_city)]
     forcast_df=pd.DataFrame(fetch_forcast_for_city(city_list[1][city_list[0].index(selected_city)]))
     
     #test
@@ -139,14 +140,14 @@ elif view == "City Forecast":
     y_label="Min temp forcast (°C)"
     ) 
     
-    error__min_matrix_per_city=get_error_per_city_min('Errors_for_city')
+    error__min_matrix_per_city=get_error_per_city_min('Errors_for_city',city_id)
 
     #print(error__min_matrix_per_city)
-    st.subheader("Error table in min temperature for different providers")
+    st.subheader("Error table for min temperature for different providers")
     st.dataframe(error__min_matrix_per_city, use_container_width=True)
 
-    error__min_matrix_per_city=get_error_per_city_max('Errors_for_city')
-    st.subheader("Error table in mmax temperature for different providers")
+    error__min_matrix_per_city=get_error_per_city_max('Errors_for_city',city_id)
+    st.subheader("Error table for mmax temperature for different providers")
     st.dataframe(error__min_matrix_per_city, use_container_width=True)
 
     
