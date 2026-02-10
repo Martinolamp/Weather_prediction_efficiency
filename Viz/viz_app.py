@@ -45,7 +45,7 @@ elif view == "Error analysis":
     pivot_max_mean= mean_error_analysis.pivot(index='Date_difference', columns='Provider_type', values='avg_error_max')
     pivot_min_mean= mean_error_analysis.pivot(index='Date_difference', columns='Provider_type', values='avg_error_min')
     pivot_max_root_error = mean_square_error_analysis.pivot(index='Date_difference', columns='Provider_type', values='avg_error_max')
-    pivot_min_root_error = mean_square_error_analysis.pivot(index='Date_difference', columns='Provider_type', values='avg_error_max')
+    pivot_min_root_error = mean_square_error_analysis.pivot(index='Date_difference', columns='Provider_type', values='avg_error_min')
     # --- WIDOK 1: Temperatura Maksymalna ---
     
 
