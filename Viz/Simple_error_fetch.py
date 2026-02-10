@@ -23,11 +23,13 @@ def get_simple_error_data(table_name):
 
         return []
     
-def get_error_per_city_min(table_name):
+def get_error_per_city_min(table_name,city_id):
 
     try:
 
-        response = client.table(table_name).select("*").execute()
+        
+
+        response = client.table(table_name).select("*").eq("City_ref_id", city_id).execute()
         response=pd.DataFrame(response.data)
         pivot_min_mean= response.pivot_table(index='Date_difference', columns='Provider_type', values='avg_error_min')
         response=pivot_min_mean.round(1).fillna('no forecast')
@@ -37,11 +39,11 @@ def get_error_per_city_min(table_name):
 
     return []
     
-def get_error_per_city_max(table_name):
+def get_error_per_city_max(table_name,city_id):
 
     try:
 
-        response = client.table(table_name).select("*").execute()
+        response = client.table(table_name).select("*").eq("City_ref_id", city_id).execute()
         response=pd.DataFrame(response.data)
         pivot_min_mean= response.pivot_table(index='Date_difference', columns='Provider_type', values='avg_error_max')
         response=pivot_min_mean.round(1).fillna('no forecast')
