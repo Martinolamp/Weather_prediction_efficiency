@@ -99,13 +99,12 @@ elif view == "City Forecast":
     city_list=list(city_names)
     selected_city = st.sidebar.selectbox("Choose city:",city_list[0])
     st.subheader(selected_city)
-    st.subheader(city_list[1][city_list[0].index(selected_city)])
-    #st.subheader("test")
-    #city_id=city_list[1][city_list[0].index(selected_city)]
+
+    
     city_id=city_list[1][city_list[0].index(selected_city)]
     forcast_df=pd.DataFrame(fetch_forcast_for_city(city_list[1][city_list[0].index(selected_city)]))
     
-    #test
+    
     pivot_forcast_max= forcast_df.pivot_table(index='Forcast_dat', columns='Provider_type', values='Max temp forcast')
 
 
