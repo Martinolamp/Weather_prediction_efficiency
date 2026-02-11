@@ -10,8 +10,8 @@ from datetime import datetime
 # --- KONFIGURACJA STRONY ---
 st.set_page_config(page_title="Weather Dashboard", page_icon="⛅", layout="wide")
 
-st.sidebar.title("Nawigacja")
-view = st.sidebar.radio("Wybierz widok:", ["Todays weather", "Error analysis","City Forecast"])
+st.sidebar.title("NaV")
+view = st.sidebar.radio("Choose the view:", ["Todays weather", "Error analysis","City Forecast"])
 
 #city_names=fetch_cities_from_db('Cities')
 
@@ -19,7 +19,7 @@ view = st.sidebar.radio("Wybierz widok:", ["Todays weather", "Error analysis","C
 
 
 
-st.title("⛅ Monitor Skuteczności Prognoz Pogody")
+st.title("⛅ Weather forecast dashboard")
 st.markdown("---")
 
 # --- BOCZNY PANEL (SIDEBAR) ---
