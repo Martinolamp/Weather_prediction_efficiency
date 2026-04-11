@@ -1,8 +1,8 @@
- 🌤️ Weather Forecast Accuracy Analyzer
+# 🌤️ Weather Forecast Accuracy Analyzer
 
 A data engineering project that continuously collects, stores, and compares weather forecast accuracy across **4 major weather API providers** for **Polish cities**.
 
-> **"Which weather service is actually the most accurate?"** — this project answers that question with real data.
+> **"Which weather service is actually the most accurate when it comes to temperature prediction?"** — this project answers that question with real data.
 
 ---
 
@@ -39,28 +39,28 @@ Białystok, Bydgoszcz, Gdańsk, Gorzów Wielkopolski, Katowice, Kielce, Kraków,
 ### Live temperature readings
 Current temperatures across all tracked cities with daily min/max extremes.
 
-![Live readings](assets/screenshots/live_readings.png)
+![Live readings](./assets/screenshots/live_readings.png)
 
 ### Daily extremes
 Min/max temperature comparison across all Polish cities.
 
-![Daily extremes](assets/screenshots/daily_extremes.png)
+![Daily extremes](./assets/screenshots/daily_extremes.png)
 
 ### Forecast comparison per city
 Provider forecasts plotted against each other for selected cities.
 
-![Forecast per city](assets/screenshots/forecast_karpacz.png)
+![Forecast per city](./assets/screenshots/forecast_karpacz.png)
 
 ### Accuracy metrics
 MAE and RMSE error trends across forecast horizons for all providers.
 
-![MAE max temp](assets/screenshots/mae_max_temp.png)
-![MAE min temp](assets/screenshots/mae_min_temp.png)
+![MAE max temp](./assets/screenshots/mae_max_temp.png)
+![MAE min temp](./assets/screenshots/mae_min_temp.png)
 
 ### Error summary tables
 Detailed numerical breakdown of prediction errors per provider and forecast day.
 
-![Error tables](assets/screenshots/error_tables.png)
+![Error tables](./assets/screenshots/error_tables.png)
 
 ---
 
@@ -173,4 +173,4 @@ The project also serves as a practical exercise in building an **end-to-end data
 
 ---
 
-*Built by [Marcin Papaj](https://github.com/Martinolamp)*
+*Built by [Marthino](https://github.com/Martinolamp)*
