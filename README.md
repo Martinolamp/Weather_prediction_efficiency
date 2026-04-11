@@ -10,6 +10,9 @@ A data engineering project that continuously collects, stores, and compares weat
 
 Every day, the system automatically fetches weather forecasts from 4 providers and stores them in a cloud database. After the forecasted day passes, actual temperatures are compared against what each provider predicted — enabling objective, data-driven accuracy comparison.
 
+
+![Dashboard demo](assets/Short_video.gif)
+
 ### Providers compared
 
 | Label | Provider | Type | Forecast horizon |
