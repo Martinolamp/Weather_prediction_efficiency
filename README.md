@@ -49,7 +49,7 @@ Min/max temperature comparison across all Polish cities.
 ### Forecast comparison per city
 Provider forecasts plotted against each other for selected cities.
 
-![Forecast per city](./assets/forecast_karpacz.png)
+![Forecast per city](./assets/forcast_karpacz.png)
 
 ### Accuracy metrics
 MAE and RMSE error trends across forecast horizons for all providers.
