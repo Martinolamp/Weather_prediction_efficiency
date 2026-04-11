@@ -1,4 +1,4 @@
-# 🌤️ Weather Forecast Accuracy Analyzer
+ 🌤️ Weather Forecast Accuracy Analyzer
 
 A data engineering project that continuously collects, stores, and compares weather forecast accuracy across **4 major weather API providers** for **Polish cities**.
 
@@ -12,24 +12,55 @@ Every day, the system automatically fetches weather forecasts from 4 providers a
 
 ### Providers compared
 
-| Label | Provider | Type |
-|-------|----------|------|
-| A | [Open-Meteo](https://open-meteo.com/) | Free / Open Source |
-| B | [WeatherAPI](https://www.weatherapi.com/) | Commercial REST API |
-| C | [Meteoblue](https://www.meteoblue.com/) | Commercial REST API |
-| D | [Visual Crossing](https://www.visualcrossing.com/) | Commercial REST API |
+| Label | Provider | Type | Forecast horizon |
+|-------|----------|------|-----------------|
+| A | [Open-Meteo](https://open-meteo.com/) | Free / Open Source | up to 6 days |
+| B | [WeatherAPI](https://www.weatherapi.com/) | Commercial REST API | up to 3 days |
+| C | [Meteoblue](https://www.meteoblue.com/) | Commercial REST API | up to 3 days |
+| D | [Visual Crossing](https://www.visualcrossing.com/) | Commercial REST API | up to 6 days |
 
 ### Locations tracked
 
-All **Polish voivodeship capitals** + selected cities of interest:
-Warszawa, Kraków, Łódź, Wrocław, Poznań, Gdańsk, Szczecin, Bydgoszcz, Lublin, Białystok, Katowice, Rzeszów, Kielce, Olsztyn, Opole, Zielona Góra, Toruń, Karpacz and more.
+All **Polish voivodeship capitals** + selected mountain/resort cities:
+
+Białystok, Bydgoszcz, Gdańsk, Gorzów Wielkopolski, Katowice, Kielce, Kraków, Krynica-Zdrój, Łódź, Lublin, Olsztyn, Opole, Poznań, Rzeszów, Suwałki, Szczecin, Toruń, Ustroń, Warszawa, Wisła, Wrocław, Zakopane, Zieleniec Duszniki, Zielona Góra, Karpacz
 
 ### Metrics calculated
 
 - **MAE** (Mean Absolute Error) — average temperature prediction error in °C
 - **RMSE** (Root Mean Square Error) — penalises larger errors more heavily
 - Tracked separately for **max** and **min** daily temperature
-- Analysed across **forecast horizons** (1-day ahead vs 5-day ahead accuracy)
+- Analysed across **forecast horizons** (1-day ahead vs 6-day ahead accuracy)
+
+---
+
+## 📸 Dashboard screenshots
+
+### Live temperature readings
+Current temperatures across all tracked cities with daily min/max extremes.
+
+![Live readings](assets/screenshots/live_readings.png)
+
+### Daily extremes
+Min/max temperature comparison across all Polish cities.
+
+![Daily extremes](assets/screenshots/daily_extremes.png)
+
+### Forecast comparison per city
+Provider forecasts plotted against each other for selected cities.
+
+![Forecast per city](assets/screenshots/forecast_karpacz.png)
+
+### Accuracy metrics
+MAE and RMSE error trends across forecast horizons for all providers.
+
+![MAE max temp](assets/screenshots/mae_max_temp.png)
+![MAE min temp](assets/screenshots/mae_min_temp.png)
+
+### Error summary tables
+Detailed numerical breakdown of prediction errors per provider and forecast day.
+
+![Error tables](assets/screenshots/error_tables.png)
 
 ---
 
@@ -52,6 +83,7 @@ Weather APIs (4 providers)
 - Forecasts stored at collection time → enables retrospective accuracy analysis
 - Cloud PostgreSQL (Supabase) → data persists independently of local machine
 - Multi-horizon analysis → shows how accuracy degrades with forecast distance
+- Actual temperatures collected hourly → precise daily min/max calculation
 
 ---
 
@@ -67,13 +99,36 @@ Weather APIs (4 providers)
 
 ---
 
-## 📈 Key Findings (so far)
+## 📈 Early Findings
 
 > Project started: **February 8, 2026** — data collection ongoing.
 
-Early results show notable differences in accuracy between providers, particularly for longer forecast horizons (4-5 days ahead). Short-range forecasts (1 day) show much tighter performance across all providers.
+Based on data collected so far (winter/spring 2026):
 
-*Dashboard updates automatically as new data is collected.*
+### Min temperature accuracy (1-day ahead MAE)
+| Provider | MAE (°C) |
+|----------|----------|
+| **B – WeatherAPI** | **0.7** ✅ best |
+| D – Visual Crossing | 1.5 |
+| A – Open-Meteo | 2.3 |
+| C – Meteoblue | 3.9 |
+
+### Max temperature accuracy (1-day ahead MAE)
+| Provider | MAE (°C) |
+|----------|----------|
+| **D – Visual Crossing** | **1.9** ✅ best |
+| B – WeatherAPI | 2.0 |
+| A – Open-Meteo | 3.3 |
+| C – Meteoblue | 5.1 |
+
+**Key observations:**
+- WeatherAPI performs best for **minimum temperature** prediction
+- Visual Crossing performs best for **maximum temperature** prediction
+- Meteoblue shows the highest error rates across both metrics
+- Accuracy degrades predictably with forecast horizon for all providers
+- Free provider (Open-Meteo) performs competitively against commercial alternatives
+
+*These findings are based on data from Feb–Apr 2026. Results will be updated as more data is collected.*
 
 ---
 
