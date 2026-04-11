@@ -39,28 +39,28 @@ Białystok, Bydgoszcz, Gdańsk, Gorzów Wielkopolski, Katowice, Kielce, Kraków,
 ### Live temperature readings
 Current temperatures across all tracked cities with daily min/max extremes.
 
-![Live readings](./assets/screenshots/live_readings.png)
+![Live readings](./assets/live_readings.png)
 
 ### Daily extremes
 Min/max temperature comparison across all Polish cities.
 
-![Daily extremes](./assets/screenshots/daily_extremes.png)
+![Daily extremes](./assets/daily_extremes.png)
 
 ### Forecast comparison per city
 Provider forecasts plotted against each other for selected cities.
 
-![Forecast per city](./assets/screenshots/forecast_karpacz.png)
+![Forecast per city](./assets/forecast_karpacz.png)
 
 ### Accuracy metrics
 MAE and RMSE error trends across forecast horizons for all providers.
 
-![MAE max temp](./assets/screenshots/mae_max_temp.png)
-![MAE min temp](./assets/screenshots/mae_min_temp.png)
+![MAE max temp](./assets/mae_max_temp.png)
+![MAE min temp](./assets/mae_min_temp.png)
 
 ### Error summary tables
 Detailed numerical breakdown of prediction errors per provider and forecast day.
 
-![Error tables](./assets/screenshots/error_tables.png)
+![Error tables](./assets/error_tables.png)
 
 ---
 
